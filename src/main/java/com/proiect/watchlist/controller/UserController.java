@@ -1,7 +1,6 @@
 package com.proiect.watchlist.controller;
 
 
-import com.proiect.watchlist.dao.UserDao;
 import com.proiect.watchlist.model.User;
 import com.proiect.watchlist.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

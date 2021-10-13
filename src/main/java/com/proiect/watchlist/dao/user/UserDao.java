@@ -1,4 +1,4 @@
-package com.proiect.watchlist.dao;
+package com.proiect.watchlist.dao.user;
 
 import com.proiect.watchlist.model.User;
 

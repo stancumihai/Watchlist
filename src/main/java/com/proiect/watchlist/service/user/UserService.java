@@ -1,8 +1,9 @@
 package com.proiect.watchlist.service.user;
 
-import com.proiect.watchlist.dao.UserDao;
+import com.proiect.watchlist.dao.user.UserDao;
 import com.proiect.watchlist.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class UserService {
     private final UserDao userDao;
 
     @Autowired
-    public UserService(UserDao userDao) {
+    public UserService(@Qualifier("UserRepo") UserDao userDao) {
         this.userDao = userDao;
     }
 

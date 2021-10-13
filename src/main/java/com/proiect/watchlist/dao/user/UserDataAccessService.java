@@ -1,4 +1,4 @@
-package com.proiect.watchlist.dao;
+package com.proiect.watchlist.dao.user;
 
 
 import com.proiect.watchlist.mapper.UserRowMapper;
@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Repository
+@Repository("UserRepo")
 public class UserDataAccessService implements UserDao {
 
     private final JdbcTemplate jdbcTemplate;
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
     public UserDataAccessService(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
