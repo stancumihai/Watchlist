@@ -44,9 +44,7 @@ public class UserController {
         return userService.createUser(user);
     }
 
-
-    //TODO Fix this when you can
-
+    /** Works */
     @PutMapping("/users/{id}")
     public User updateUser(@PathVariable("id") int id, @RequestBody User user) {
         System.out.println(user);

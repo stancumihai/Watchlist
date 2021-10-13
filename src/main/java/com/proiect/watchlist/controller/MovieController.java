@@ -45,6 +45,7 @@ public class MovieController {
         return movieService.createMovie(movie);
     }
 
+    /** Works */
     @PutMapping("/movies/{id}")
     public Movie updateMovie(@PathVariable int id, @RequestBody Movie movie) {
         return movieService.updateMovie(id, movie);

@@ -20,30 +20,41 @@ public class ActorController {
         this.actorService = actorService;
     }
 
-    /** Works */
+    /**
+     * Works
+     */
     @GetMapping("/actors")
     public List<Actor> listAllActors() {
         return actorService.listAllActors();
     }
 
-    /** Works */
+    /**
+     * Works
+     */
     @GetMapping("/actors/{id}")
     public Optional<Actor> getActorById(@PathVariable("id") Integer id) {
         return actorService.getActorById(id);
     }
 
-    /** Works */
+    /**
+     * Works
+     */
     @DeleteMapping("/actors/{id}")
     public int deleteActor(@PathVariable("id") int id) {
         return actorService.deleteActor(id);
     }
 
-    /** Works */
+    /**
+     * Works
+     */
     @PostMapping("/actors")
     public Actor createActor(@RequestBody Actor actor) {
         return actorService.createActor(actor);
     }
 
+    /**
+     * Works
+     */
     @PutMapping("actors/{id}")
     public Actor updateActor(@PathVariable("id") int id, @RequestBody Actor actor) {
         return actorService.updateActor(id, actor);

@@ -69,9 +69,10 @@ public class MovieDataAccessService implements MovieDao {
     public Movie updateMovie(int id, Movie movie) {
         String sql = "update movie set name = ?, year = ?" +
                 ", genre = ?, director = ? , language = ? where id = ?";
-        jdbcTemplate.update(sql, movie.getName(), movie.getYear(), movie.getGenre(),
+        int updated = jdbcTemplate.update(sql, movie.getName(), movie.getYear(), movie.getGenre(),
                 movie.getDirector(), movie.getLanguage(), movie.getId());
-        movie.setId(id);
-        return movie;
+        if (updated == 1) {
+            return movie;
+        } else return null;
     }
 }
