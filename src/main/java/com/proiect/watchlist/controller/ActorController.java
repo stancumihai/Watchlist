@@ -13,28 +13,32 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class ActorController {
 
-    private ActorService actorService;
+    private final ActorService actorService;
 
     @Autowired
     public ActorController(ActorService actorService) {
         this.actorService = actorService;
     }
 
+    /** Works */
     @GetMapping("/actors")
     public List<Actor> listAllActors() {
         return actorService.listAllActors();
     }
 
+    /** Works */
     @GetMapping("/actors/{id}")
     public Optional<Actor> getActorById(@PathVariable("id") Integer id) {
         return actorService.getActorById(id);
     }
 
+    /** Works */
     @DeleteMapping("/actors/{id}")
     public int deleteActor(@PathVariable("id") int id) {
         return actorService.deleteActor(id);
     }
 
+    /** Works */
     @PostMapping("/actors")
     public Actor createActor(@RequestBody Actor actor) {
         return actorService.createActor(actor);

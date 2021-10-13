@@ -20,21 +20,25 @@ public class UserController {
         this.userService = userService;
     }
 
+    /** Works */
     @GetMapping("/users")
     public List<User> listAllUsers() {
         return userService.listAllUsers();
     }
 
+    /** Works */
     @GetMapping("/users/{id}")
     public Optional<User> getUserById(@PathVariable("id") Integer id) {
         return userService.getUserById(id);
     }
 
+    /** Works */
     @DeleteMapping("/users/{id}")
     public int deleteUser(@PathVariable("id") int id) {
         return userService.deleteUser(id);
     }
 
+    /** Works */
     @PostMapping("/users")
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);

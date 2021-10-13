@@ -50,14 +50,13 @@ public class MovieDataAccessService implements MovieDao {
 
     @Override
     public Movie createMovie(Movie movie) {
-        String sql = "insert into movie (name, year, description," +
+        String sql = "insert into movie (name, year," +
                 "genre, director, language) VALUES (:name, :year," +
-                ":description, :genre, :director, :language)";
+                ":genre, :director, :language)";
         KeyHolder holder = new GeneratedKeyHolder();
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("name", movie.getName())
                 .addValue("year", movie.getYear())
-                .addValue("description", movie.getDescription())
                 .addValue("genre", movie.getGenre())
                 .addValue("director", movie.getDirector())
                 .addValue("language", movie.getLanguage());
@@ -68,7 +67,7 @@ public class MovieDataAccessService implements MovieDao {
 
     @Override
     public Movie updateMovie(int id, Movie movie) {
-        String sql = "update movie set name = ?, year = ?,description = ?" +
+        String sql = "update movie set name = ?, year = ?" +
                 ", genre = ?, director = ? , language = ? where id = ?";
         jdbcTemplate.update(sql, movie.getName(), movie.getYear(), movie.getGenre(),
                 movie.getDirector(), movie.getLanguage(), movie.getId());

@@ -35,7 +35,7 @@ public class ActorDataAccessService implements ActorDao {
 
     @Override
     public Optional<Actor> getActorById(Integer id) {
-        String sql = "Select * from movie where id = ?";
+        String sql = "Select * from actor where id = ?";
         Actor actor = jdbcTemplate.queryForObject(sql, new ActorRowMapper(), id);
         assert actor != null;
         return Optional.of(actor);
@@ -55,7 +55,7 @@ public class ActorDataAccessService implements ActorDao {
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("name", actor.getName())
                 .addValue("surname", actor.getSurname())
-                .addValue("birthdate", actor.getSurname());
+                .addValue("birthdate", actor.getBirthdate());
         namedParameterJdbcTemplate.update(sql, parameters, holder);
         actor.setId(Objects.requireNonNull(holder.getKey()).intValue());
         return actor;
@@ -65,8 +65,8 @@ public class ActorDataAccessService implements ActorDao {
     public Actor updateActor(int id, Actor actor) {
         String sql = "update actor set name = ?, surname = ?,birthdate = ?" +
                 " where id = ?";
-        jdbcTemplate.update(sql, actor.getName(), actor.getName(),
-                actor.getSurname(), actor.getId());
+        jdbcTemplate.update(sql, actor.getName(), actor.getSurname(),
+                actor.getBirthdate(), actor.getId());
         actor.setId(id);
         return actor;
     }

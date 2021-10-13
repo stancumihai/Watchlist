@@ -5,7 +5,6 @@ public class Movie {
     private Integer id;
     private String name;
     private Integer year;
-    private String description;
     private String genre;
     private String director;
     private String language;
@@ -13,11 +12,10 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(Integer id, String name, Integer year, String description, String genre, String director, String language) {
+    public Movie(Integer id, String name, Integer year, String genre, String director, String language) {
         this.id = id;
         this.name = name;
         this.year = year;
-        this.description = description;
         this.genre = genre;
         this.director = director;
         this.language = language;
@@ -46,14 +44,6 @@ public class Movie {
 
     public void setYear(Integer year) {
         this.year = year;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getGenre() {
@@ -86,7 +76,6 @@ public class Movie {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", year=" + year +
-                ", description='" + description + '\'' +
                 ", genre='" + genre + '\'' +
                 ", director='" + director + '\'' +
                 ", language='" + language + '\'' +

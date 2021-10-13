@@ -13,7 +13,7 @@ public class ActorRowMapper implements RowMapper<Actor> {
         actor.setId(rs.getInt("id"));
         actor.setName(rs.getString("name"));
         actor.setSurname(rs.getString("surname"));
-        actor.setBirthdate(rs.getDate("date"));
+        actor.setBirthdate(rs.getDate("birthdate"));
         return actor;
     }
 }

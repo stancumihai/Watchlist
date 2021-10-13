@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class ActorService {
 
-    private ActorDao actorDao;
+    private final ActorDao actorDao;
 
     public ActorService(@Qualifier("ActorRepo") ActorDao actorDao) {
         this.actorDao = actorDao;
