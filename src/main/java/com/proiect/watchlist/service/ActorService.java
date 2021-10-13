@@ -1,4 +1,4 @@
-package com.proiect.watchlist.service.actor;
+package com.proiect.watchlist.service;
 
 
 import com.proiect.watchlist.dao.actor.ActorDao;

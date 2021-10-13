@@ -1,4 +1,4 @@
-package com.proiect.watchlist.service.movie;
+package com.proiect.watchlist.service;
 
 
 import com.proiect.watchlist.dao.movie.MovieDao;

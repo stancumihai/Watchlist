@@ -2,7 +2,7 @@ package com.proiect.watchlist.controller;
 
 
 import com.proiect.watchlist.model.Actor;
-import com.proiect.watchlist.service.actor.ActorService;
+import com.proiect.watchlist.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

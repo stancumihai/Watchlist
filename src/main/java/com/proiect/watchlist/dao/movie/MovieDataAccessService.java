@@ -2,7 +2,6 @@ package com.proiect.watchlist.dao.movie;
 
 import com.proiect.watchlist.mapper.MovieRowMapper;
 import com.proiect.watchlist.model.Movie;
-import com.proiect.watchlist.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
