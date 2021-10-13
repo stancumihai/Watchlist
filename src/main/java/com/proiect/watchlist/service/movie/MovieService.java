@@ -41,7 +41,7 @@ public class MovieService {
     public Movie createMovie(Movie movie) {
         return movieDao.createMovie(movie);
     }
-
+    @Transactional
     public Movie updateMovie(int id, Movie movie) {
         return movieDao.updateMovie(id, movie);
     }
