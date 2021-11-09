@@ -9,17 +9,17 @@ import com.proiect.watchlist.model.MovieActors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class MovieActorsService {
 
-    private MovieDao movieDao;
-    private ActorDao actorDao;
-    private MovieActorsDao movieActorsDao;
+    private final MovieDao movieDao;
+    private final ActorDao actorDao;
+    private final MovieActorsDao movieActorsDao;
 
     @Autowired
     public MovieActorsService(@Qualifier("MovieRepo") MovieDao movieDao,

@@ -4,6 +4,7 @@ package com.proiect.watchlist.dao.user;
 import com.proiect.watchlist.mapper.UserRowMapper;
 import com.proiect.watchlist.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -55,9 +56,13 @@ public class UserDataAccessService implements UserDao {
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("username", user.getUser_name())
                 .addValue("password", user.getPassword());
-        namedParameterJdbcTemplate.update(sql, parameters, holder);
-        user.setId(Objects.requireNonNull(holder.getKey()).intValue());
-        return user;
+
+
+        int update = namedParameterJdbcTemplate.update(sql, parameters, holder);
+        if (update == 1) {
+            user.setId(Objects.requireNonNull(holder.getKey()).intValue());
+            return user;
+        } else return null;
     }
 
     @Override

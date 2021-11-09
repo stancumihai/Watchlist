@@ -5,8 +5,8 @@ import com.proiect.watchlist.dao.address.AddressDao;
 import com.proiect.watchlist.model.Address;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
