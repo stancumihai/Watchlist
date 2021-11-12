@@ -1,48 +1,34 @@
 package com.proiect.watchlist.service;
 
-import com.proiect.watchlist.dao.user.UserDao;
+import com.proiect.watchlist.dao.repository.UserRepository;
 import com.proiect.watchlist.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
-
-    private final UserDao userDao;
-
     @Autowired
-    public UserService(@Qualifier("UserRepo") UserDao userDao) {
-        this.userDao = userDao;
+    private UserRepository userRepository;
+
+    public User saveOrUpdate(User user) {
+        return userRepository.save(user);
     }
 
-    @Transactional
-    public List<User> listAllUsers() {
-        return userDao.listAllUsers();
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
-    @Transactional
-    public Optional<User> getUserById(Integer id) {
-        return userDao.getUserById(id);
+    public User findById(Integer id) {
+        return userRepository.findById(id).get();
     }
 
-    @Transactional
-    public int deleteUser(int id) {
-        return userDao.deleteUser(id);
+    public User findByUsernamePassword(String username, String password) {
+        return userRepository.findUserByUsernameAndPassword(username, password);
     }
 
-    @Transactional
-    public User updateUser(int id, User user) {
-        System.out.println(user);
-        return userDao.updateUser(id, user);
-    }
-
-    @Transactional
-    public User createUser(User user) {
-        return userDao.createUser(user);
+    public void deleteById(Integer id) {
+        userRepository.deleteById(id);
     }
 }

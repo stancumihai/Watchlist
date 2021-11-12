@@ -2,62 +2,54 @@ package com.proiect.watchlist.controller;
 
 
 import com.proiect.watchlist.model.Actor;
+import com.proiect.watchlist.model.Movie;
 import com.proiect.watchlist.service.ActorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/actors")
 public class ActorController {
 
     private final ActorService actorService;
 
-    @Autowired
     public ActorController(ActorService actorService) {
         this.actorService = actorService;
     }
 
     /**
-     * Works
+     * TODO make it work
      */
-    @GetMapping("/actors")
-    public List<Actor> listAllActors() {
-        return actorService.listAllActors();
+    @PostMapping("/")
+    public void saveActor(@RequestBody Actor actor) {
+        actorService.saveOrUpdate(actor);
     }
 
     /**
-     * Works
+     * It Works
      */
-    @GetMapping("/actors/{id}")
-    public Optional<Actor> getActorById(@PathVariable("id") Integer id) {
-        return actorService.getActorById(id);
+    @GetMapping
+    public List<Actor> findAll() {
+        return actorService.findAll();
     }
 
     /**
-     * Works
+     * It Works
      */
-    @DeleteMapping("/actors/{id}")
-    public int deleteActor(@PathVariable("id") int id) {
-        return actorService.deleteActor(id);
+    @GetMapping("/{id}")
+    public Actor findAllById(@PathVariable("id") Integer id) {
+        return actorService.findById(id);
     }
 
-    /**
-     * Works
-     */
-    @PostMapping("/actors")
-    public Actor createActor(@RequestBody Actor actor) {
-        return actorService.createActor(actor);
+    @GetMapping("/cinemas")
+    public List<Movie> getMoviesByActor(Integer actorId) {
+        return actorService.getMoviesByActor(actorId);
     }
 
-    /**
-     * Works
-     */
-    @PutMapping("actors/{id}")
-    public Actor updateActor(@PathVariable("id") int id, @RequestBody Actor actor) {
-        return actorService.updateActor(id, actor);
+    @PutMapping("/{id}")
+    public void update(@RequestBody Actor actor) {
+        actorService.saveOrUpdate(actor);
     }
-
 }

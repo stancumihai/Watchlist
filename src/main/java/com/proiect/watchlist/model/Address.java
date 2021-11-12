@@ -1,21 +1,40 @@
 package com.proiect.watchlist.model;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "address")
 public class Address {
 
+    @Id
+    @Column(name = "id")
+    @SequenceGenerator(
+            name = "address_sequence",
+            sequenceName = "address_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY,
+            generator = "address_sequence"
+    )
     private Integer id;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "country")
     private String country;
-    private Actor actorId;
 
-    public Address() {
-    }
-
-    public Address(Integer id, String city, String country, Actor actorId) {
-        this.id = id;
-        this.city = city;
-        this.country = country;
-        this.actorId = actorId;
-    }
+    @Column(name = "actorId")
+    private Integer actor_id;
 
     public Integer getId() {
         return id;
@@ -41,12 +60,12 @@ public class Address {
         this.country = country;
     }
 
-    public Actor getActorId() {
-        return actorId;
+    public Integer getActor_id() {
+        return actor_id;
     }
 
-    public void setActorId(Actor actorId) {
-        this.actorId = actorId;
+    public void setActor_id(Integer actor_id) {
+        this.actor_id = actor_id;
     }
 
     @Override
@@ -55,7 +74,7 @@ public class Address {
                 "id=" + id +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
-                ", actorId=" + actorId +
+                ", actor_id=" + actor_id +
                 '}';
     }
 }

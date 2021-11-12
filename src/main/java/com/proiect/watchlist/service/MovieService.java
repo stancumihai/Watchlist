@@ -1,48 +1,70 @@
 package com.proiect.watchlist.service;
 
-
-import com.proiect.watchlist.dao.movie.MovieDao;
+import com.proiect.watchlist.dao.repository.ActorRepository;
+import com.proiect.watchlist.dao.repository.CinemaRepository;
+import com.proiect.watchlist.dao.repository.MovieRepository;
+import com.proiect.watchlist.model.Actor;
+import com.proiect.watchlist.model.Cinema;
 import com.proiect.watchlist.model.Movie;
-import com.proiect.watchlist.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MovieService {
 
-    private final MovieDao movieDao;
-
     @Autowired
-    public MovieService(@Qualifier("MovieRepo") MovieDao movieDao) {
-        this.movieDao = movieDao;
+    private CinemaRepository cinemaRepository;
+    @Autowired
+    private MovieRepository movieRepository;
+    @Autowired
+    private ActorRepository actorRepository;
+
+    public void addCinemaToMovie(Integer movieId, Integer cinemaId) {
+
+        Movie movie = movieRepository.findById(movieId).get();
+        Cinema cinema = cinemaRepository.findById(cinemaId).get();
+        movie.addCinema(cinema);
+        cinema.addMovie(movie);
+
+        movieRepository.save(movie);
+        cinemaRepository.save(cinema);
     }
 
-    @Transactional
-    public List<Movie> listAllMovies() {
-        return movieDao.listAllMovies();
+    public void addActorToMovie(Integer actorId, Integer movieId) {
+        Movie movie = movieRepository.findById(movieId).get();
+        Actor actor = actorRepository.findById(actorId).get();
+        movie.addActors(actor);
+        actor.addMovie(movie);
+
+        movieRepository.save(movie);
+        actorRepository.save(actor);
     }
 
-    @Transactional
-    public Optional<Movie> getMovieById(Integer id) {
-        return movieDao.getMovieById(id);
+    public void saveOrUpdate(Movie movie) {
+        movieRepository.save(movie);
     }
 
-    @Transactional
-    public int deleteMovie(int id) {
-        return movieDao.deleteMovie(id);
+    public List<Movie> findAll() {
+        return movieRepository.findAll();
     }
 
-    @Transactional
-    public Movie createMovie(Movie movie) {
-        return movieDao.createMovie(movie);
+    public Movie findById(Integer id) {
+        return movieRepository.findById(id).get();
     }
-    @Transactional
-    public Movie updateMovie(int id, Movie movie) {
-        return movieDao.updateMovie(id, movie);
+
+    public List<Movie> findByTitle(String title) {
+        return movieRepository.findByTitle(title);
+    }
+
+    public List<Actor> findActorsByMovie(Integer movieId) {
+        Movie movie = movieRepository.findById(movieId).get();
+        return movie.getActors();
+    }
+
+    public List<Cinema> findCinemasByMovie(Integer movieId) {
+        Movie movie = movieRepository.findById(movieId).get();
+        return movie.getCinemas();
     }
 }

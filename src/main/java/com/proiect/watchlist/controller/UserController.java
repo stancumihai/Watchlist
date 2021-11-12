@@ -2,76 +2,59 @@ package com.proiect.watchlist.controller;
 
 
 import com.proiect.watchlist.model.User;
-import com.proiect.watchlist.service.RegisterService;
 import com.proiect.watchlist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
-    private final RegisterService registerService;
 
     @Autowired
-    public UserController(UserService userService, RegisterService registerService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.registerService = registerService;
-    }
-
-    @CrossOrigin
-    @PostMapping("/login")
-    public Boolean loginUser(@RequestBody User user) {
-        if (!registerService.loginUser(user)) {
-            createUser(user);
-            return true;
-        }
-        return null;
     }
 
     /**
-     * Works
+     * TODO make it work
      */
-    @GetMapping("/users")
-    public List<User> listAllUsers() {
-        return userService.listAllUsers();
+    @PostMapping("/")
+    public void saveUser(@RequestBody User user) {
+        userService.saveOrUpdate(user);
     }
 
     /**
-     * Works
+     * It Works
      */
-    @GetMapping("/users/{id}")
-    public Optional<User> getUserById(@PathVariable("id") Integer id) {
-        return userService.getUserById(id);
+    @GetMapping
+    public List<User> findAll() {
+        return userService.findAll();
     }
 
     /**
-     * Works
+     * It Works
      */
-    @DeleteMapping("/users/{id}")
-    public int deleteUser(@PathVariable("id") int id) {
-        return userService.deleteUser(id);
+    @GetMapping("/{id}")
+    public User findById(@PathVariable("id") Integer id) {
+        return userService.findById(id);
     }
 
-    /**
-     * Works
-     */
-    @PostMapping("/users")
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
-    }
+//    //what does this do?
+//    @GetMapping("/id")
+//    public User loginUser(String username, String password) {
+//        return userService.findByUsernamePassword(username, password);
+//    }
 
     /**
-     * Works
+     * It partially works, I need to somehow make so that i do not have to put the id in the body
      */
-    @PutMapping("/users/{id}")
-    public User updateUser(@PathVariable("id") int id, @RequestBody User user) {
-        System.out.println(user);
-        return userService.updateUser(id, user);
+    @PutMapping("/")
+    public User updateUser(@RequestBody User user) {
+        return userService.saveOrUpdate(user);
     }
 }

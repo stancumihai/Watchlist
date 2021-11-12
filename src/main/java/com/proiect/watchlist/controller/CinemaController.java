@@ -1,63 +1,52 @@
 package com.proiect.watchlist.controller;
 
-
 import com.proiect.watchlist.model.Cinema;
+import com.proiect.watchlist.model.Movie;
 import com.proiect.watchlist.service.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/cinemas")
 public class CinemaController {
 
-    private final CinemaService cinemaService;
-
     @Autowired
-    public CinemaController(CinemaService cinemaService) {
-        this.cinemaService = cinemaService;
+    private CinemaService cinemaService;
+
+    /**
+     * TODO make it work
+     */
+    @PostMapping("/")
+    public void saveCinema(@RequestBody Cinema cinema) {
+        cinemaService.saveOrUpdate(cinema);
     }
 
     /**
-     * Works
+     * It Works
      */
-    @GetMapping("/cinemas")
-    public List<Cinema> listAllCinemas() {
-        return cinemaService.listAllCinemas();
+    @GetMapping
+    public List<Cinema> findAll() {
+        return cinemaService.findAll();
     }
 
     /**
-     * Works
+     * It Works
      */
-    @GetMapping("/cinemas/{id}")
-    public Optional<Cinema> getCinemaById(@PathVariable("id") Integer id) {
-        return cinemaService.getCinemaById(id);
+    @GetMapping("/{id}")
+    public Cinema findById(@PathVariable("id") Integer id) {
+        return cinemaService.findById(id);
     }
 
-    /**
-     * Works
-     */
-    @DeleteMapping("/cinemas/{id}")
-    public int deleteCinema(@PathVariable("id") int id) {
-        return cinemaService.deleteCinema(id);
+    @PutMapping("/{id}")
+    public void updateCinema(@RequestBody Cinema cinema) {
+        cinemaService.saveOrUpdate(cinema);
     }
 
-    /**
-     * Works
-     */
-    @PostMapping("/cinemas")
-    public Cinema createCinema(@RequestBody Cinema cinema) {
-        return cinemaService.createCinema(cinema);
-    }
-
-    /**
-     * Works
-     */
-    @PutMapping("/cinemas/{id}")
-    public Cinema updateCinema(@PathVariable("id") int id, @RequestBody Cinema cinema) {
-        return cinemaService.updateCinema(id, cinema);
+    @GetMapping("/actors/{id}")
+    public List<Movie> getMovieByCinema(@PathVariable("id") Integer cinemaId) {
+        return cinemaService.getMoviesByCinema(cinemaId);
     }
 }

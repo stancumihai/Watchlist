@@ -1,20 +1,29 @@
 package com.proiect.watchlist.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
+
+    @Column(name = "user_name")
     private String user_name;
+
+    @Column(name = "password")
     private String password;
 
-    public User(){
-
-    }
-
-    public User(Integer id, String user_name, String password) {
-        this.id = id;
-        this.user_name = user_name;
-        this.password = password;
-    }
 
     public Integer getId() {
         return id;
@@ -44,7 +53,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", user_Name='" + user_name + '\'' +
+                ", user_name='" + user_name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

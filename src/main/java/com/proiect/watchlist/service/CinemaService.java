@@ -1,48 +1,47 @@
 package com.proiect.watchlist.service;
 
-
-import com.proiect.watchlist.dao.cinema.CinemaDao;
+import com.proiect.watchlist.dao.repository.CinemaRepository;
+import com.proiect.watchlist.dao.repository.MovieRepository;
 import com.proiect.watchlist.model.Cinema;
+import com.proiect.watchlist.model.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CinemaService {
 
-    private final CinemaDao cinemaDao;
-
     @Autowired
-    public CinemaService(CinemaDao cinemaDao) {
-        this.cinemaDao = cinemaDao;
+    private CinemaRepository cinemaRepository;
+    @Autowired
+    private MovieRepository movieRepository;
+
+    public void saveOrUpdate(Cinema cinema) {
+        cinemaRepository.save(cinema);
     }
 
-    @Transactional
-    public List<Cinema> listAllCinemas() {
-        return cinemaDao.listAllCinemas();
+    public List<Cinema> findAll() {
+        return cinemaRepository.findAll();
     }
 
-    @Transactional
-    public Optional<Cinema> getCinemaById(Integer id) {
-        return cinemaDao.getCinemaById(id);
+    public Cinema findById(Integer id) {
+        return cinemaRepository.findById(id).get();
     }
 
-    @Transactional
-    public int deleteCinema(int id) {
-        return cinemaDao.deleteCinema(id);
+    public void addMovieToCinema(Integer movieId, Integer cinemaId) {
+
+        Movie movie = movieRepository.findById(movieId).get();
+        Cinema cinema = cinemaRepository.findById(cinemaId).get();
+        movie.addCinema(cinema);
+        cinema.addMovie(movie);
+
+        movieRepository.save(movie);
+        cinemaRepository.save(cinema);
     }
 
-    @Transactional
-    public Cinema createCinema(Cinema cinema) {
-
-        return cinemaDao.createCinema(cinema);
-    }
-
-    @Transactional
-    public Cinema updateCinema(int id, Cinema cinema) {
-        return cinemaDao.updateCinema(id, cinema);
+    public List<Movie> getMoviesByCinema(Integer cinemaId) {
+        Cinema cinema = cinemaRepository.findById(cinemaId).get();
+        return cinema.getMovies();
     }
 }
