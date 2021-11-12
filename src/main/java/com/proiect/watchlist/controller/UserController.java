@@ -2,22 +2,35 @@ package com.proiect.watchlist.controller;
 
 
 import com.proiect.watchlist.model.User;
+import com.proiect.watchlist.service.RegisterService;
 import com.proiect.watchlist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     private final UserService userService;
+    private final RegisterService registerService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RegisterService registerService) {
         this.userService = userService;
+        this.registerService = registerService;
+    }
+
+    @CrossOrigin
+    @PostMapping("/login")
+    public Boolean loginUser(@RequestBody User user) {
+        if (!registerService.loginUser(user)) {
+            saveUser(user);
+            return true;
+        }
+        return null;
     }
 
     /**
