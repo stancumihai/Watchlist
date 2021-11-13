@@ -4,6 +4,8 @@ import com.proiect.watchlist.model.Cinema;
 import com.proiect.watchlist.model.Movie;
 import com.proiect.watchlist.service.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,15 +15,20 @@ import java.util.List;
 @RequestMapping("/api/cinemas")
 public class CinemaController {
 
+    private final CinemaService cinemaService;
+
     @Autowired
-    private CinemaService cinemaService;
+    public CinemaController(CinemaService cinemaService) {
+        this.cinemaService = cinemaService;
+    }
 
     /**
      * TODO make it work
      */
     @PostMapping("/")
-    public void saveCinema(@RequestBody Cinema cinema) {
-        cinemaService.saveOrUpdate(cinema);
+    public ResponseEntity<Cinema> saveCinema(@RequestBody Cinema cinema) {
+        Cinema newCinema = cinemaService.saveOrUpdate(cinema);
+        return new ResponseEntity<>(newCinema, HttpStatus.CREATED);
     }
 
     /**
@@ -40,9 +47,21 @@ public class CinemaController {
         return cinemaService.findById(id);
     }
 
+    /**
+     * It Works
+     */
     @PutMapping("/{id}")
-    public void updateCinema(@RequestBody Cinema cinema) {
-        cinemaService.saveOrUpdate(cinema);
+    public ResponseEntity<Cinema> updateCinema(@RequestBody Cinema cinema, @PathVariable("id") Integer id) {
+        if (findById(id) != null) {
+            Cinema newCinema = new Cinema(
+                    id,
+                    cinema.getName(),
+                    cinema.getCapacity()
+            );
+            saveCinema(newCinema);
+            return new ResponseEntity<>(newCinema, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/actors/{id}")

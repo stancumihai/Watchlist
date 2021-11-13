@@ -5,6 +5,8 @@ import com.proiect.watchlist.model.Cinema;
 import com.proiect.watchlist.model.Movie;
 import com.proiect.watchlist.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,11 +24,12 @@ public class MovieController {
     }
 
     /**
-     * TODO make it work
+     * It Works
      */
     @PostMapping("/")
-    public void saveOrUpdate(@RequestBody Movie movie) {
-        movieService.saveOrUpdate(movie);
+    public ResponseEntity<Movie> save(@RequestBody Movie movie) {
+        Movie newMovie = movieService.saveOrUpdate(movie);
+        return new ResponseEntity<>(newMovie, HttpStatus.CREATED);
     }
 
     /**
@@ -56,9 +59,20 @@ public class MovieController {
     /**
      * It Works
      */
-    @PutMapping("/")
-    public void updateMovie(@RequestBody Movie movie) {
-        movieService.saveOrUpdate(movie);
+    @PutMapping("/{id}")
+    public ResponseEntity<Movie> updateUser(@RequestBody Movie movie, @PathVariable("id") Integer id) {
+        if (findById(id) != null) {
+            Movie newMovie = new Movie(id,
+                    movie.getName(),
+                    movie.getYear(),
+                    movie.getGenre(),
+                    movie.getDirector(),
+                    movie.getLanguage()
+            );
+            save(newMovie);
+            return new ResponseEntity<>(newMovie, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/actors/{id}")

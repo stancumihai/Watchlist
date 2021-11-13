@@ -5,6 +5,8 @@ import com.proiect.watchlist.model.User;
 import com.proiect.watchlist.service.RegisterService;
 import com.proiect.watchlist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,9 +38,10 @@ public class UserController {
     /**
      * TODO make it work
      */
-    @PostMapping("/")
-    public void saveUser(@RequestBody User user) {
-        userService.saveOrUpdate(user);
+    @PostMapping
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
+        User newUser = userService.saveOrUpdate(user);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
     /**
@@ -66,8 +69,13 @@ public class UserController {
     /**
      * It partially works, I need to somehow make so that i do not have to put the id in the body
      */
-    @PutMapping("/")
-    public User updateUser(@RequestBody User user) {
-        return userService.saveOrUpdate(user);
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("id") Integer id) {
+        if (findById(id) != null) {
+            User newUser = new User(id, user.getUser_name(), user.getPassword());
+            saveUser(newUser);
+            return new ResponseEntity<>(newUser, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

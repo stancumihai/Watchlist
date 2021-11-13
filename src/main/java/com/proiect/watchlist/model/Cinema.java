@@ -2,9 +2,7 @@ package com.proiect.watchlist.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,8 +10,10 @@ import java.util.List;
 
 @Entity
 @Builder
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "cinema")
 public class Cinema {
 
@@ -36,21 +36,26 @@ public class Cinema {
     @Column(name = "capacity")
     private Integer capacity;
 
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "cinema_movies",
             joinColumns = @JoinColumn(
-                    name = "cinemaId",
+                    name = "cinema_Id",
                     referencedColumnName = "id"
             ),
             inverseJoinColumns = @JoinColumn(
-                    name = "movieId",
+                    name = "movie_Id",
                     referencedColumnName = "id"
             )
     )
     @JsonIgnore
     private List<Movie> movies;
+
+    public Cinema(Integer id, String name, Integer capacity) {
+        this.id = id;
+        this.name = name;
+        this.capacity = capacity;
+    }
 
     public void addMovie(Movie movie) {
         if (movies == null)
@@ -65,37 +70,5 @@ public class Cinema {
                 ", name='" + name + '\'' +
                 ", capacity=" + capacity +
                 '}';
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-
-    public List<Movie> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
     }
 }

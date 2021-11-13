@@ -1,9 +1,7 @@
 package com.proiect.watchlist.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -16,6 +14,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "actor")
 public class Actor {
 
@@ -45,55 +45,23 @@ public class Actor {
     @JoinTable(
             name = "movie_actors",
             joinColumns = @JoinColumn(
-                    name = "actorId",
+                    name = "actor_Id",
                     referencedColumnName = "id"
             ),
             inverseJoinColumns = @JoinColumn(
-                    name = "movieId",
+                    name = "movie_Id",
                     referencedColumnName = "id"
             )
     )
+
     @JsonIgnore
     private List<Movie> movies;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
+    public Actor(Integer id, String name, String surname, Date birthdate) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(java.sql.Date birthdate) {
         this.birthdate = birthdate;
-    }
-
-    public List<Movie> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
     }
 
     public void addMovie(Movie movie) {

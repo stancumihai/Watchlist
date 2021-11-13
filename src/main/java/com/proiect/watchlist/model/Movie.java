@@ -1,9 +1,7 @@
 package com.proiect.watchlist.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -13,6 +11,8 @@ import java.util.List;
 
 @Entity
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "movie")
@@ -46,16 +46,25 @@ public class Movie {
     @Column(name = "language")
     private String language;
 
+    public Movie(Integer id, String name, Integer year, String genre, String director, String language) {
+        this.id = id;
+        this.name = name;
+        this.year = year;
+        this.genre = genre;
+        this.director = director;
+        this.language = language;
+    }
+
     @ManyToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
             name = "cinema_movies",
             joinColumns = @JoinColumn(
-                    name = "movieId",
+                    name = "movie_Id",
                     referencedColumnName = "id"
             ),
             inverseJoinColumns = @JoinColumn(
-                    name = "cinemaId",
+                    name = "cinema_Id",
                     referencedColumnName = "id"
             )
     )
@@ -82,24 +91,16 @@ public class Movie {
     @JoinTable(
             name = "movie_actors",
             joinColumns = @JoinColumn(
-                    name = "movieId",
+                    name = "movie_Id",
                     referencedColumnName = "id"
             ),
             inverseJoinColumns = @JoinColumn(
-                    name = "actorId",
+                    name = "actor_Id",
                     referencedColumnName = "id"
             )
     )
     @JsonIgnore
     private List<Actor> actors;
-
-    public List<Actor> getActors() {
-        return actors;
-    }
-
-    public void setActors(List<Actor> actors) {
-        this.actors = actors;
-    }
 
     public void addActors(Actor actor) {
         if (actors == null)
@@ -118,53 +119,5 @@ public class Movie {
                 ", director='" + director + '\'' +
                 ", language='" + language + '\'' +
                 '}';
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 }

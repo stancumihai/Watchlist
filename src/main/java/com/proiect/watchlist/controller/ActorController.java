@@ -4,6 +4,9 @@ package com.proiect.watchlist.controller;
 import com.proiect.watchlist.model.Actor;
 import com.proiect.watchlist.model.Movie;
 import com.proiect.watchlist.service.ActorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,16 +18,18 @@ public class ActorController {
 
     private final ActorService actorService;
 
+    @Autowired
     public ActorController(ActorService actorService) {
         this.actorService = actorService;
     }
 
     /**
-     * TODO make it work
+     * It Works
      */
     @PostMapping("/")
-    public void saveActor(@RequestBody Actor actor) {
-        actorService.saveOrUpdate(actor);
+    public ResponseEntity<Actor> saveActor(@RequestBody Actor actor) {
+        Actor newActor = actorService.saveOrUpdate(actor);
+        return new ResponseEntity<>(newActor, HttpStatus.CREATED);
     }
 
     /**
@@ -39,7 +44,7 @@ public class ActorController {
      * It Works
      */
     @GetMapping("/{id}")
-    public Actor findAllById(@PathVariable("id") Integer id) {
+    public Actor findById(@PathVariable("id") Integer id) {
         return actorService.findById(id);
     }
 
@@ -49,7 +54,16 @@ public class ActorController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody Actor actor) {
-        actorService.saveOrUpdate(actor);
+    public ResponseEntity<Actor> updateUser(@RequestBody Actor actor, @PathVariable("id") Integer id) {
+        if (findById(id) != null) {
+            Actor newActor = new Actor(id,
+                    actor.getName(),
+                    actor.getSurname(),
+                    actor.getBirthdate()
+            );
+            saveActor(newActor);
+            return new ResponseEntity<>(newActor, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
