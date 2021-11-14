@@ -19,7 +19,7 @@ public class RegisterService {
 
     @Transactional
     public Boolean loginUser(User user) {
-
+        System.out.println(2);
         for (User myUser : userDao.findAll()) {
             if (user.equals(myUser)) {
                 System.out.println(1);
