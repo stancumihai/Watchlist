@@ -1,5 +1,6 @@
 package com.proiect.watchlist.service;
 
+import com.proiect.watchlist.exception.ApiRequestException;
 import com.proiect.watchlist.exception.ResourceNotFoundException;
 import com.proiect.watchlist.dao.repository.UserRepository;
 import com.proiect.watchlist.model.User;
@@ -31,7 +32,7 @@ public class UserService {
 
     @Transactional
     public User findById(Integer id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), id));
+        return userRepository.findById(id).orElseThrow(() -> new ApiRequestException("Cannot find this id"));
     }
 
     @Transactional

@@ -1,6 +1,7 @@
 package com.proiect.watchlist.controller;
 
 
+import com.proiect.watchlist.exception.ApiRequestException;
 import com.proiect.watchlist.model.User;
 import com.proiect.watchlist.service.RegisterService;
 import com.proiect.watchlist.service.UserService;
@@ -76,6 +77,6 @@ public class UserController {
             saveUser(newUser);
             return new ResponseEntity<>(newUser, HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        throw new ApiRequestException("Cannot get all students");
     }
 }
