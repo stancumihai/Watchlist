@@ -98,8 +98,8 @@ export default function SearchAppBar() {
           </Typography>
           <Link href="https://github.com/stancumihai/Watchlist">
             <GitHubIcon fontSize="large" className={classes.gh} /></Link>
-          <Link href = "/"><span>Login</span></Link>
-          <Link href = "/Register"> <span>Register</span></Link>
+          <Link to = "/"><span>Login</span></Link>
+          <Link to = "/Register"> <span>Register</span></Link>
          </Toolbar>
       </AppBar>
     </div>
