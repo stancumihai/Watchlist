@@ -2,7 +2,7 @@ package com.proiect.watchlist.service;
 
 import com.proiect.watchlist.dao.repository.CinemaRepository;
 import com.proiect.watchlist.dao.repository.MovieRepository;
-import com.proiect.watchlist.exception.ResourceNotFoundException;
+import com.proiect.watchlist.exception.ApiRequestException;
 import com.proiect.watchlist.model.Cinema;
 import com.proiect.watchlist.model.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +36,16 @@ public class CinemaService {
     @Transactional
     public Cinema findById(Integer id) {
         return cinemaRepository.findById(id).
-                orElseThrow(() -> new ResourceNotFoundException(Cinema.class.getSimpleName(), id));
+                orElseThrow(() -> new ApiRequestException("Cannot find cinema with id : " + id));
     }
 
     @Transactional
     public void addMovieToCinema(Integer movieId, Integer cinemaId) {
 
         Movie movie = movieRepository.findById(movieId).
-                orElseThrow(() -> new ResourceNotFoundException(Movie.class.getSimpleName(), movieId));
+                orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + movieId));
         Cinema cinema = cinemaRepository.findById(cinemaId).
-                orElseThrow(() -> new ResourceNotFoundException(Cinema.class.getSimpleName(), cinemaId));
+                orElseThrow(() -> new ApiRequestException("Cannot find cinema with id : " + cinemaId));
         movie.addCinema(cinema);
         cinema.addMovie(movie);
 
@@ -56,7 +56,7 @@ public class CinemaService {
     @Transactional
     public List<Movie> getMoviesByCinema(Integer cinemaId) {
         Cinema cinema = cinemaRepository.findById(cinemaId).
-                orElseThrow(() -> new ResourceNotFoundException(Cinema.class.getSimpleName(), cinemaId));
+                orElseThrow(() -> new ApiRequestException("Cannot find cinema with id : " + cinemaId));
         return cinema.getMovies();
     }
 }

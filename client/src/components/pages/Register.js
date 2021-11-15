@@ -16,12 +16,11 @@ export default function Login() {
       password: password
     }
     LoginService.createUser(user)
-    .then((res) => {
+    .then(() => {
       setTimeout(() =>{
         alert(user.user_name +  " has registered")
         setRedirect(true)
       }, 1000)
-
     })
     .catch(err => {
       if(err.response){

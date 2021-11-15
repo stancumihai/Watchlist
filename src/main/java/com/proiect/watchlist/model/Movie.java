@@ -60,11 +60,11 @@ public class Movie {
     @JoinTable(
             name = "cinema_movies",
             joinColumns = @JoinColumn(
-                    name = "movie_Id",
+                    name = "movie_id",
                     referencedColumnName = "id"
             ),
             inverseJoinColumns = @JoinColumn(
-                    name = "cinema_Id",
+                    name = "cinema_id",
                     referencedColumnName = "id"
             )
     )
@@ -91,11 +91,11 @@ public class Movie {
     @JoinTable(
             name = "movie_actors",
             joinColumns = @JoinColumn(
-                    name = "movie_Id",
+                    name = "movie_id",
                     referencedColumnName = "id"
             ),
             inverseJoinColumns = @JoinColumn(
-                    name = "actor_Id",
+                    name = "actor_id",
                     referencedColumnName = "id"
             )
     )
@@ -107,6 +107,37 @@ public class Movie {
             actors = new ArrayList<>();
         actors.add(actor);
 
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(
+            name = "user_movies",
+            joinColumns = @JoinColumn(
+                    name = "movie_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "user_id",
+                    referencedColumnName = "id"
+            )
+    )
+    @JsonIgnore
+    private List<User> users;
+
+    public void addUser(User user) {
+        if (users == null){
+            users = new ArrayList<>();
+        }
+        users.add(user);
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override

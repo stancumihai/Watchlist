@@ -35,7 +35,6 @@ export default class Movies extends Component{
                             this.state.movies.map(
                                 movie => 
                                 <tr key = {movie.id}>
-
                                     <td>{movie.id}</td>
                                     <td>{movie.name}</td>
                                     <td>{movie.year}</td>

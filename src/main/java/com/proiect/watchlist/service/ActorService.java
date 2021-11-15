@@ -2,7 +2,7 @@ package com.proiect.watchlist.service;
 
 import com.proiect.watchlist.dao.repository.ActorRepository;
 import com.proiect.watchlist.dao.repository.MovieRepository;
-import com.proiect.watchlist.exception.ResourceNotFoundException;
+import com.proiect.watchlist.exception.ApiRequestException;
 import com.proiect.watchlist.model.Actor;
 import com.proiect.watchlist.model.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class ActorService {
     @Transactional
     public Actor findById(Integer id) {
         return actorRepository.findById(id).
-                orElseThrow(() -> new ResourceNotFoundException(Actor.class.getSimpleName(), id));
+                orElseThrow(() -> new ApiRequestException("Cannot find actor with id : " + id));
     }
 
     @Transactional
@@ -37,9 +37,9 @@ public class ActorService {
     @Transactional
     public void addMovieToActor(Integer actorId, Integer movieId) {
         Movie movie = movieRepository.findById(movieId).
-                orElseThrow(() -> new ResourceNotFoundException(Movie.class.getSimpleName(), movieId));
+                orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + movieId));
         Actor actor = actorRepository.findById(actorId).
-                orElseThrow(() -> new ResourceNotFoundException(Actor.class.getSimpleName(), actorId));
+                orElseThrow(() -> new ApiRequestException("Cannot find actor with id : " + actorId));
         movie.addActors(actor);
         actor.addMovie(movie);
         movieRepository.save(movie);
@@ -49,8 +49,7 @@ public class ActorService {
     @Transactional
     public List<Movie> getMoviesByActor(Integer actorId) {
         Actor actor = actorRepository.findById(actorId).
-                orElseThrow(() -> new ResourceNotFoundException(Actor.class.getSimpleName(), actorId));
-
+                orElseThrow(() -> new ApiRequestException("Cannot find actor with id : " + actorId));
         return actor.getMovies();
     }
 }

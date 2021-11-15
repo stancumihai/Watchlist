@@ -1,8 +1,13 @@
 package com.proiect.watchlist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -23,6 +28,36 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(
+            name = "user_movies",
+            joinColumns = @JoinColumn(
+                    name = "user_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "movie_id",
+                    referencedColumnName = "id"
+            )
+    )
+
+    @JsonIgnore
+    private List<Movie> movies;
+
+    public void addMovie(Movie movie) {
+        if (movies == null) {
+            movies = new ArrayList<>();
+        }
+        movies.add(movie);
+    }
+
+    public User(Integer id, String user_name, String password) {
+        this.id = id;
+        this.user_name = user_name;
+        this.password = password;
+    }
 
     @Override
     public String toString() {

@@ -2,6 +2,7 @@ package com.proiect.watchlist.controller;
 
 
 import com.proiect.watchlist.exception.ApiRequestException;
+import com.proiect.watchlist.model.Movie;
 import com.proiect.watchlist.model.User;
 import com.proiect.watchlist.service.RegisterService;
 import com.proiect.watchlist.service.UserService;
@@ -61,12 +62,10 @@ public class UserController {
         return userService.findById(id);
     }
 
-//    //what does this do?
-//    @GetMapping("/id")
-//    public User loginUser(String username, String password) {
-//        return userService.findByUsernamePassword(username, password);
-//    }
-
+    @GetMapping("/movies/{id}")
+    public List<Movie> getMovies(@PathVariable("id") Integer id) {
+        return userService.getMovies(id);
+    }
     /**
      * It partially works, I need to somehow make so that i do not have to put the id in the body
      */

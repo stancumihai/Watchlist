@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import UserService from "../../services/UserService.js";
-
 import "./Login.css";
-import { Redirect } from "react-router";
+import { useHistory} from "react-router";
 
 export default function Login() {
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState (false)
+  
+  const history = useHistory()
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -18,25 +18,21 @@ export default function Login() {
       password: password
     }
     
-    console.log(user);
+    const users = UserService.getUsers()
 
-    UserService.getUsers().then(res => {
+    users.then(res => {
       for (var counter in res.data){
         if(res.data[counter].user_name === user.user_name && res.data[counter].password === user.password){
-          setRedirect(true)
+            history.push('/profile' , {  id : counter + 1}) 
+            return;         
         }
       }
-      if(redirect === false){
-        alert('User does not exist, please register')
-        window.location.reload()
-      }
+      alert('User does not exist, please register')
+      window.location.reload()
     })
   }
 
   return (
-    redirect 
-    ? <Redirect to = '/users'/>
-    :
     <div className="Login">
       <div className="background">
         <div className="shape"></div>

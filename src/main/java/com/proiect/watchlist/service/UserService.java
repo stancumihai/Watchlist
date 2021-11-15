@@ -1,8 +1,8 @@
 package com.proiect.watchlist.service;
 
-import com.proiect.watchlist.exception.ApiRequestException;
-import com.proiect.watchlist.exception.ResourceNotFoundException;
 import com.proiect.watchlist.dao.repository.UserRepository;
+import com.proiect.watchlist.exception.ApiRequestException;
+import com.proiect.watchlist.model.Movie;
 import com.proiect.watchlist.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,8 @@ public class UserService {
 
     @Transactional
     public User findById(Integer id) {
-        return userRepository.findById(id).orElseThrow(() -> new ApiRequestException("Cannot find this id"));
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ApiRequestException("Cannot find user with id: " + id));
     }
 
     @Transactional
@@ -43,5 +44,12 @@ public class UserService {
     @Transactional
     public void deleteById(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    @Transactional
+    public List<Movie> getMovies(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ApiRequestException("Cannot find user with id: " + id));
+        return user.getMovies();
     }
 }

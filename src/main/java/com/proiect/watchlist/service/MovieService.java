@@ -3,7 +3,7 @@ package com.proiect.watchlist.service;
 import com.proiect.watchlist.dao.repository.ActorRepository;
 import com.proiect.watchlist.dao.repository.CinemaRepository;
 import com.proiect.watchlist.dao.repository.MovieRepository;
-import com.proiect.watchlist.exception.ResourceNotFoundException;
+import com.proiect.watchlist.exception.ApiRequestException;
 import com.proiect.watchlist.model.Actor;
 import com.proiect.watchlist.model.Cinema;
 import com.proiect.watchlist.model.Movie;
@@ -31,9 +31,9 @@ public class MovieService {
     public void addCinemaToMovie(Integer movieId, Integer cinemaId) {
 
         Movie movie = movieRepository.findById(movieId).
-                orElseThrow(() -> new ResourceNotFoundException(Movie.class.getSimpleName(), movieId));
+                orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + movieId));
         Cinema cinema = cinemaRepository.findById(cinemaId).
-                orElseThrow(() -> new ResourceNotFoundException(Cinema.class.getSimpleName(), movieId));
+                orElseThrow(() -> new ApiRequestException("Cannot find cinema with id : " + cinemaId));
         movie.addCinema(cinema);
         cinema.addMovie(movie);
 
@@ -43,9 +43,9 @@ public class MovieService {
 
     public void addActorToMovie(Integer actorId, Integer movieId) {
         Movie movie = movieRepository.findById(movieId).
-                orElseThrow(() -> new ResourceNotFoundException(Movie.class.getSimpleName(), movieId));
+                orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + movieId));
         Actor actor = actorRepository.findById(actorId).
-                orElseThrow(() -> new ResourceNotFoundException(Actor.class.getSimpleName(), movieId));
+                orElseThrow(() -> new ApiRequestException("Cannot find actor with id : " + actorId));
         movie.addActors(actor);
         actor.addMovie(movie);
 
@@ -62,7 +62,8 @@ public class MovieService {
     }
 
     public Movie findById(Integer id) {
-        return movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Movie.class.getSimpleName(), id));
+        return movieRepository.findById(id).
+                orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + id));
     }
 
     public List<Movie> findByTitle(String title) {
@@ -70,12 +71,14 @@ public class MovieService {
     }
 
     public List<Actor> findActorsByMovie(Integer id) {
-        Movie movie = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Movie.class.getSimpleName(), id));
+        Movie movie = movieRepository.findById(id).
+                orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + id));
         return movie.getActors();
     }
 
     public List<Cinema> findCinemasByMovie(Integer id) {
-        Movie movie = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Movie.class.getSimpleName(), id));
+        Movie movie = movieRepository.findById(id).
+                orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + id));
         return movie.getCinemas();
     }
 }
