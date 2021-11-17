@@ -1,6 +1,5 @@
 package com.proiect.watchlist.controller;
 
-
 import com.proiect.watchlist.model.Actor;
 import com.proiect.watchlist.model.Movie;
 import com.proiect.watchlist.service.ActorService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/actors")
 public class ActorController {
 
@@ -23,26 +21,17 @@ public class ActorController {
         this.actorService = actorService;
     }
 
-    /**
-     * It Works
-     */
     @PostMapping("/")
     public ResponseEntity<Actor> saveActor(@RequestBody Actor actor) {
         Actor newActor = actorService.saveOrUpdate(actor);
         return new ResponseEntity<>(newActor, HttpStatus.CREATED);
     }
 
-    /**
-     * It Works
-     */
     @GetMapping
     public List<Actor> findAll() {
         return actorService.findAll();
     }
 
-    /**
-     * It Works
-     */
     @GetMapping("/{id}")
     public Actor findById(@PathVariable("id") Integer id) {
         return actorService.findById(id);

@@ -23,7 +23,7 @@ export default function Login() {
     users.then(res => {
       for (var counter in res.data){
         if(res.data[counter].user_name === user.user_name && res.data[counter].password === user.password){
-            history.push('/profile' , {  id : counter + 1}) 
+              history.push('/profile' , { id : parseInt(counter + 1)}) 
             return;         
         }
       }

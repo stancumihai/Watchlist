@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/movies")
 public class MovieController {
 
@@ -23,42 +22,27 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    /**
-     * It Works
-     */
     @PostMapping("/")
     public ResponseEntity<Movie> save(@RequestBody Movie movie) {
         Movie newMovie = movieService.saveOrUpdate(movie);
         return new ResponseEntity<>(newMovie, HttpStatus.CREATED);
     }
 
-    /**
-     * It Works
-     */
     @GetMapping
     public List<Movie> findAll() {
         return movieService.findAll();
     }
 
-    /**
-     * It Works
-     */
     @GetMapping("/{id}")
     public Movie findById(@PathVariable Integer id) {
         return movieService.findById(id);
     }
 
-    /**
-     * It Works
-     */
     @GetMapping("/title/{title}")
     public List<Movie> getMovieByTitle(@PathVariable("title") String title) {
         return movieService.findByTitle(title);
     }
 
-    /**
-     * It Works
-     */
     @PutMapping("/{id}")
     public ResponseEntity<Movie> updateUser(@RequestBody Movie movie, @PathVariable("id") Integer id) {
         if (findById(id) != null) {

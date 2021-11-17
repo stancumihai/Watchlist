@@ -1,6 +1,6 @@
 body {
   color: #797979;
-  background: #f1f2f7;
+  background: cornflowerblue;
   font-family: 'Open Sans', sans-serif;
   padding: 0px !important;
   margin: 0px !important;
@@ -8,6 +8,9 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
+}
+.html{
+  background-color: cornflowerblue;
 }
 
 .profile-nav, .profile-info{
@@ -85,6 +88,10 @@ body {
   color: #bcb3aa;
 }
 
+p{
+  display: inline;
+}
+
 .r-activity {
   margin: 6px 0 0;
   font-size: 12px;
@@ -120,6 +127,18 @@ body {
   font-weight: 300;
 }
 
+.movie-list{
+  display: inline;
+  float: left;
+  width: 30%;
+  border: 1px solid grey;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+h1{
+  color: coral;
+}
 .bio-graph-info {
   color: #89817e;
 }

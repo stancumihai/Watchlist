@@ -29,6 +29,15 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "email")
+    private String email;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
@@ -53,10 +62,13 @@ public class User {
         movies.add(movie);
     }
 
-    public User(Integer id, String user_name, String password) {
+    public User(Integer id, String user_name, String password, String name, String surname, String email) {
         this.id = id;
         this.user_name = user_name;
         this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
     }
 
     @Override

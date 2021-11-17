@@ -1,6 +1,5 @@
 package com.proiect.watchlist.controller;
 
-
 import com.proiect.watchlist.exception.ApiRequestException;
 import com.proiect.watchlist.model.Movie;
 import com.proiect.watchlist.model.User;
@@ -15,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     private final UserService userService;
@@ -27,7 +25,6 @@ public class UserController {
         this.registerService = registerService;
     }
 
-    @CrossOrigin
     @PostMapping("/login")
     public Boolean loginUser(@RequestBody User user) {
         if (!registerService.loginUser(user)) {
@@ -37,26 +34,17 @@ public class UserController {
         return null;
     }
 
-    /**
-     * TODO make it work
-     */
     @PostMapping
     public ResponseEntity<User> saveUser(@RequestBody User user) {
-        User newUser = userService.saveOrUpdate(user);
+        User newUser = userService.saveOrUpdateUser(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
-    /**
-     * It Works
-     */
     @GetMapping
     public List<User> findAll() {
         return userService.findAll();
     }
 
-    /**
-     * It Works
-     */
     @GetMapping("/{id}")
     public User findById(@PathVariable("id") Integer id) {
         return userService.findById(id);
@@ -66,16 +54,15 @@ public class UserController {
     public List<Movie> getMovies(@PathVariable("id") Integer id) {
         return userService.getMovies(id);
     }
-    /**
-     * It partially works, I need to somehow make so that i do not have to put the id in the body
-     */
+
+
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("id") Integer id) {
         if (findById(id) != null) {
-            User newUser = new User(id, user.getUser_name(), user.getPassword());
+            User newUser = new User(id, user.getUser_name(), user.getPassword(), user.getName(), user.getSurname(), user.getPassword());
             saveUser(newUser);
             return new ResponseEntity<>(newUser, HttpStatus.OK);
         }
-        throw new ApiRequestException("Cannot get all students");
+        throw new ApiRequestException("Cannot update this user");
     }
 }

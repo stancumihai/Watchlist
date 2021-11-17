@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/cinemas")
 public class CinemaController {
 
@@ -22,34 +21,22 @@ public class CinemaController {
         this.cinemaService = cinemaService;
     }
 
-    /**
-     * TODO make it work
-     */
     @PostMapping("/")
     public ResponseEntity<Cinema> saveCinema(@RequestBody Cinema cinema) {
         Cinema newCinema = cinemaService.saveOrUpdate(cinema);
         return new ResponseEntity<>(newCinema, HttpStatus.CREATED);
     }
 
-    /**
-     * It Works
-     */
     @GetMapping
     public List<Cinema> findAll() {
         return cinemaService.findAll();
     }
 
-    /**
-     * It Works
-     */
     @GetMapping("/{id}")
     public Cinema findById(@PathVariable("id") Integer id) {
         return cinemaService.findById(id);
     }
 
-    /**
-     * It Works
-     */
     @PutMapping("/{id}")
     public ResponseEntity<Cinema> updateCinema(@RequestBody Cinema cinema, @PathVariable("id") Integer id) {
         if (findById(id) != null) {

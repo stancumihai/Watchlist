@@ -7,6 +7,7 @@ import Navbar from './components/layout/Navbar.js';
 import Users from './components/db_tables/Users.js'
 import Actors from './components/db_tables/Actors.js'
 import Movies from './components/db_tables/Movies.js'
+import Home from './components/pages/Home.js';
 import './App.css'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
@@ -18,6 +19,7 @@ function App() {
            <Switch>
              <Route exact path = '/' component = {Login}/>
              <Route exact path = '/register' component = {Register}/>
+             <Route exact path = '/home' component = {Home}/>
              <Route exact path = '/users' component = {Users}/>
              <Route exact path = '/movies' component = {Movies}/>
              <Route exact path = '/actors' component = {Actors}/>

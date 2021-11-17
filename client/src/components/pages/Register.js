@@ -7,18 +7,26 @@ import { Redirect } from "react-router";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
   const [redirect, setRedirect] = useState (false)
 
   function handleSubmit(event) {
     event.preventDefault()
-    const user = {
+    
+    const enteredUser = {
       user_name : username,
-      password: password
+      password,
+      name,
+      surname,
+      email
     }
-    LoginService.createUser(user)
+    
+    LoginService.createUser(enteredUser)
     .then(() => {
       setTimeout(() =>{
-        alert(user.user_name +  " has registered")
+        alert(enteredUser.user_name +  " has registered")
         setRedirect(true)
       }, 1000)
     })
@@ -41,12 +49,13 @@ export default function Login() {
     <div className="Login">
       <div className="background">
         <div className="shape"></div>
-        <div className="shape"></div>
+        <div className="shape-register"></div>
      </div>
-      <form onSubmit={handleSubmit}>
+      <form className = "registerForm" onSubmit={handleSubmit}>
         <h3>Register</h3>
         <Form.Group size="lg">
-          <Form.Label >User Name</Form.Label>
+          <h4 style ={{paddingTop : "50px", fontSize:"25px"}}>Mandatory</h4>
+          <Form.Label className = "required">User Name</Form.Label>
           <Form.Control
             id = "register-username"
             autoFocus
@@ -58,12 +67,40 @@ export default function Login() {
           />
         </Form.Group>
         <Form.Group size="lg">
-          <Form.Label >Password</Form.Label>
+          <Form.Label className = "required">Password</Form.Label>
           <Form.Control
             id = "register-password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+        <h4 style ={{paddingTop : "50px", fontSize:"25px"}}>Secondary</h4>
+        <Form.Group size="lg">
+          <Form.Label >User</Form.Label>
+          <Form.Control
+            id = "register-name"
+            type="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group size="lg">
+          <Form.Label >Surname</Form.Label>
+          <Form.Control
+            id = "register-surname"
+            type="surname"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group size="lg">
+          <Form.Label >Email</Form.Label>
+          <Form.Control
+            id = "register-email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
        <input 
