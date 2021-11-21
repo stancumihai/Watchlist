@@ -37,18 +37,19 @@ public class ActorController {
         return actorService.findById(id);
     }
 
-    @GetMapping("/cinemas")
-    public List<Movie> getMoviesByActor(Integer actorId) {
+    @GetMapping("/movies/{id}")
+    public List<Movie> getMoviesByActor(@PathVariable("id") Integer actorId) {
         return actorService.getMoviesByActor(actorId);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Actor> updateUser(@RequestBody Actor actor, @PathVariable("id") Integer id) {
+    public ResponseEntity<Actor> updateActor(@RequestBody Actor actor, @PathVariable("id") Integer id) {
         if (findById(id) != null) {
             Actor newActor = new Actor(id,
                     actor.getName(),
                     actor.getSurname(),
-                    actor.getBirthdate()
+                    actor.getBirthdate(),
+                    actor.getURL()
             );
             saveActor(newActor);
             return new ResponseEntity<>(newActor, HttpStatus.OK);

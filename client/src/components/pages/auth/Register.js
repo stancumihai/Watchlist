@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import Form from "react-bootstrap/Form";
 import "./Login.css";
-import LoginService from "../../services/LoginService.js";
+import LoginService from "../../../services/LoginService.js";
 import { Redirect } from "react-router";
 
 export default function Login() {
@@ -80,7 +80,7 @@ export default function Login() {
           <Form.Label >User</Form.Label>
           <Form.Control
             id = "register-name"
-            type="name"
+            type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -89,7 +89,7 @@ export default function Login() {
           <Form.Label >Surname</Form.Label>
           <Form.Control
             id = "register-surname"
-            type="surname"
+            type="text"
             value={surname}
             onChange={(e) => setSurname(e.target.value)}
           />

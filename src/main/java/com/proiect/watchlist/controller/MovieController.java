@@ -44,14 +44,16 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Movie> updateUser(@RequestBody Movie movie, @PathVariable("id") Integer id) {
+    public ResponseEntity<Movie> updateMovie(@RequestBody Movie movie, @PathVariable("id") Integer id) {
         if (findById(id) != null) {
             Movie newMovie = new Movie(id,
                     movie.getName(),
                     movie.getYear(),
                     movie.getGenre(),
                     movie.getDirector(),
-                    movie.getLanguage()
+                    movie.getLanguage(),
+                    movie.getDescription(),
+                    movie.getURL()
             );
             save(newMovie);
             return new ResponseEntity<>(newMovie, HttpStatus.OK);

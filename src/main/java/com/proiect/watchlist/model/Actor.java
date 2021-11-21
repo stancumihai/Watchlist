@@ -40,6 +40,9 @@ public class Actor {
     @Column(name = "birthdate")
     private Date birthdate;
 
+    @Column(name = "URL")
+    private String URL;
+
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -57,17 +60,20 @@ public class Actor {
     @JsonIgnore
     private List<Movie> movies;
 
-    public Actor(Integer id, String name, String surname, Date birthdate) {
+    public Actor(Integer id, String name, String surname, Date birthdate, String URL) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.birthdate = birthdate;
+        this.URL = URL;
     }
 
     public void addMovie(Movie movie) {
         if (movies == null)
             movies = new ArrayList<>();
-        movies.add(movie);
+        else {
+            movies.add(movie);
+        }
     }
 
     @Override

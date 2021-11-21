@@ -11,6 +11,10 @@ class MovieService {
     async getMovieById(id){
         return await axios.get(MOVIES_REST_API_URL + `/${id}`)
     }
+
+    async getActorsByMovie(id){
+        return await axios.get(MOVIES_REST_API_URL + `/actors/${id}`)
+    }
 }
 
 export default new MovieService();

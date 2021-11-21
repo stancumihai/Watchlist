@@ -13,10 +13,15 @@ import java.util.List;
 
 @Service
 public class ActorService {
+
+    private final ActorRepository actorRepository;
+    private final MovieRepository movieRepository;
+
     @Autowired
-    private ActorRepository actorRepository;
-    @Autowired
-    private MovieRepository movieRepository;
+    public ActorService(ActorRepository actorRepository, MovieRepository movieRepository) {
+        this.actorRepository = actorRepository;
+        this.movieRepository = movieRepository;
+    }
 
     @Transactional
     public List<Actor> findAll() {
@@ -40,10 +45,21 @@ public class ActorService {
                 orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + movieId));
         Actor actor = actorRepository.findById(actorId).
                 orElseThrow(() -> new ApiRequestException("Cannot find actor with id : " + actorId));
-        movie.addActors(actor);
+        for(Actor actor1:movie.getActors()){
+            if(actor1.equals(actor)){
+                throw new ApiRequestException("Actor with id : " + actorId + " already exists");
+            }
+        }
+        for(Movie movie1:actor.getMovies()){
+            if(movie1.equals(movie)){
+                throw new ApiRequestException("Movie with id : " + movieId + " already exists");
+            }
+        }
+        movie.addActor(actor);
         actor.addMovie(movie);
-        movieRepository.save(movie);
-        actorRepository.save(actor);
+        // TODO explica-mi ce e aici printr-un comment
+//        movieRepository.save(movie);
+//        actorRepository.save(actor);
     }
 
     @Transactional

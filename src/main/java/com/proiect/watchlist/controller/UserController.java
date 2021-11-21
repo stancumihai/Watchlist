@@ -65,4 +65,9 @@ public class UserController {
         }
         throw new ApiRequestException("Cannot update this user");
     }
+
+    @PostMapping("/movies/{idUser}/{idMovie}")
+    public Movie addMovieToUser(@PathVariable("idUser") Integer userId, @PathVariable("idMovie") Integer movieId) {
+        return userService.addMovieToUser(userId, movieId);
+    }
 }

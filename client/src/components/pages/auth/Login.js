@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
-import UserService from "../../services/UserService.js";
 import "./Login.css";
 import { useHistory} from "react-router";
+import get_users from '../../../actions/users/userActions.js'
+import { connect } from 'react-redux'
 
-export default function Login() {
+const Login = props => {
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   
   const history = useHistory()
+
+  useEffect(() =>{
+    props.get_users()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -17,19 +23,15 @@ export default function Login() {
       user_name : username,
       password: password
     }
-    
-    const users = UserService.getUsers()
 
-    users.then(res => {
-      for (var counter in res.data){
-        if(res.data[counter].user_name === user.user_name && res.data[counter].password === user.password){
-              history.push('/profile' , { id : parseInt(counter + 1)}) 
-            return;         
-        }
+    for (var counter in props.users){
+      if(props.users[counter].user_name === user.user_name && props.users[counter].password === user.password){
+            history.push('/profile' , { id : parseInt(counter + 1)}) 
+          return;         
       }
-      alert('User does not exist, please register')
-      window.location.reload()
-    })
+    }
+    alert('User does not exist, please register')
+    window.location.reload()
   }
 
   return (
@@ -68,3 +70,9 @@ export default function Login() {
     </div>
   );
 }
+
+const mapStateToProps = state =>({
+  users:state.auth.items
+})
+
+export default  connect(mapStateToProps, {get_users})(Login)

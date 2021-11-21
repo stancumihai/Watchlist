@@ -46,13 +46,20 @@ public class Movie {
     @Column(name = "language")
     private String language;
 
-    public Movie(Integer id, String name, Integer year, String genre, String director, String language) {
+    @Column(name = "description")
+    private String description;
+    @Column(name = "URL")
+    private String URL;
+
+    public Movie(Integer id, String name, Integer year, String genre, String director, String language, String description, String URL) {
         this.id = id;
         this.name = name;
         this.year = year;
         this.genre = genre;
         this.director = director;
         this.language = language;
+        this.description = description;
+        this.URL = URL;
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -102,11 +109,10 @@ public class Movie {
     @JsonIgnore
     private List<Actor> actors;
 
-    public void addActors(Actor actor) {
+    public void addActor(Actor actor) {
         if (actors == null)
             actors = new ArrayList<>();
         actors.add(actor);
-
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -126,7 +132,7 @@ public class Movie {
     private List<User> users;
 
     public void addUser(User user) {
-        if (users == null){
+        if (users == null) {
             users = new ArrayList<>();
         }
         users.add(user);

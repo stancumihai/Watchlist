@@ -55,11 +55,12 @@ public class User {
     @JsonIgnore
     private List<Movie> movies;
 
-    public void addMovie(Movie movie) {
+    public Movie addMovie(Movie movie) {
         if (movies == null) {
             movies = new ArrayList<>();
         }
         movies.add(movie);
+        return movie;
     }
 
     public User(Integer id, String user_name, String password, String name, String surname, String email) {

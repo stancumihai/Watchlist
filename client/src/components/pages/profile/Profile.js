@@ -1,16 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React , {useState, useEffect} from "react";
 import { useLocation } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
-import UserService from "../../services/UserService.js"
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import {useHistory} from "react-router";
+import {Box,Button , CircularProgress , makeStyles } from '@material-ui/core';
+import {useHistory , withRouter} from "react-router";
+
+import UserService from "../../../services/UserService.js"
 
 import "./Profile.css"
 
-export default function Profile() {
+export function Profile() {
     
     const location = useLocation();     
     const myParam = parseInt(location.state.id);
@@ -61,7 +59,6 @@ export default function Profile() {
     }
 
     useEffect(() =>{
-        console.log(location.state.id);
         loadUserById();
         loadUserMovies();
      // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -147,3 +144,4 @@ export default function Profile() {
         </div>
 )}
 
+export default withRouter(Profile)

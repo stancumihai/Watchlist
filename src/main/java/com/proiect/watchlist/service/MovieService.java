@@ -46,11 +46,23 @@ public class MovieService {
                 orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + movieId));
         Actor actor = actorRepository.findById(actorId).
                 orElseThrow(() -> new ApiRequestException("Cannot find actor with id : " + actorId));
-        movie.addActors(actor);
-        actor.addMovie(movie);
 
-        movieRepository.save(movie);
-        actorRepository.save(actor);
+        for(Actor actor1:movie.getActors()){
+            if(actor1.equals(actor)){
+                throw new ApiRequestException("Actor with id : " + actorId + " already exists");
+            }
+        }
+        for(Movie movie1:actor.getMovies()){
+            if(movie1.equals(movie)){
+                throw new ApiRequestException("Movie with id : " + movieId + " already exists");
+            }
+        }
+
+        movie.addActor(actor);
+        actor.addMovie(movie);
+        //TODO Explica-mi
+//        movieRepository.save(movie);
+//        actorRepository.save(actor);
     }
 
     public Movie saveOrUpdate(Movie movie) {
