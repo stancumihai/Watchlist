@@ -1,0 +1,16 @@
+#movie-card{
+    box-shadow: 10px 10px 8px #888888;
+    transition: box-shadow 0.3s, border 0.3s, transform 1s;
+    width: 23rem;
+    height: 32rem;
+    margin: 40px 10px 15px 70px;
+    border-radius: 30px !important;
+  }
+  
+  #movie-card:hover {
+    cursor: pointer;
+    box-shadow: 5px 5px 15px 1px rgb(99, 245, 1),
+      -5px -5px 15px 1px rgb(205, 241, 0);
+    transition: transform 1s;
+    transform: scale(1.05);
+  }
