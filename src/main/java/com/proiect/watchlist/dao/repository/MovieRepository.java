@@ -11,4 +11,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @Query("SELECT u FROM Movie u WHERE u.name LIKE ?1")
     List<Movie> findByTitle(String title);
 
+    @Query("Select avg(rating) from review r where r.id_movie=?1")
+    Float getRatingById(Integer Id);
+
 }

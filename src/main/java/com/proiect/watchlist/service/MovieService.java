@@ -7,8 +7,10 @@ import com.proiect.watchlist.exception.ApiRequestException;
 import com.proiect.watchlist.model.Actor;
 import com.proiect.watchlist.model.Cinema;
 import com.proiect.watchlist.model.Movie;
+import com.proiect.watchlist.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class MovieService {
         this.actorRepository = actorRepository;
     }
 
+    @Transactional
     public void addCinemaToMovie(Integer movieId, Integer cinemaId) {
 
         Movie movie = movieRepository.findById(movieId).
@@ -41,6 +44,7 @@ public class MovieService {
         cinemaRepository.save(cinema);
     }
 
+    @Transactional
     public void addActorToMovie(Integer actorId, Integer movieId) {
         Movie movie = movieRepository.findById(movieId).
                 orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + movieId));
@@ -65,32 +69,49 @@ public class MovieService {
 //        actorRepository.save(actor);
     }
 
+    @Transactional
     public Movie saveOrUpdate(Movie movie) {
         return movieRepository.save(movie);
     }
 
+    @Transactional
     public List<Movie> findAll() {
         return movieRepository.findAll();
     }
 
+    @Transactional
     public Movie findById(Integer id) {
         return movieRepository.findById(id).
                 orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + id));
     }
 
+    @Transactional
     public List<Movie> findByTitle(String title) {
         return movieRepository.findByTitle(title);
     }
 
+    @Transactional
     public List<Actor> findActorsByMovie(Integer id) {
         Movie movie = movieRepository.findById(id).
                 orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + id));
         return movie.getActors();
     }
 
+    @Transactional
     public List<Cinema> findCinemasByMovie(Integer id) {
         Movie movie = movieRepository.findById(id).
                 orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + id));
         return movie.getCinemas();
+    }
+
+    @Transactional
+    public Float getMovieRating(Integer id) {
+        return movieRepository.getRatingById(id);
+    }
+
+    @Transactional
+    public List<Review> getMovieReviews(Integer id) {
+        return movieRepository.findById(id)
+                .orElseThrow(() -> new ApiRequestException("Cannot find user with id: " + id)).getReviews();
     }
 }

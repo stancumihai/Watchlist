@@ -4,6 +4,7 @@ import com.proiect.watchlist.dao.repository.MovieRepository;
 import com.proiect.watchlist.dao.repository.UserRepository;
 import com.proiect.watchlist.exception.ApiRequestException;
 import com.proiect.watchlist.model.Movie;
+import com.proiect.watchlist.model.Review;
 import com.proiect.watchlist.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,5 +64,11 @@ public class UserService {
     public List<Movie> getMovies(Integer id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ApiRequestException("Cannot find user with id: " + id)).getMovies();
+    }
+
+    @Transactional
+    public List<Review> getReviews(Integer id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ApiRequestException("Cannot find user with id: " + id)).getReviews();
     }
 }

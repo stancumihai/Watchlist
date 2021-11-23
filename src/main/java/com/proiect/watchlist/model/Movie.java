@@ -131,6 +131,10 @@ public class Movie {
     @JsonIgnore
     private List<User> users;
 
+    @OneToMany(mappedBy="review")
+    @JsonIgnore
+    private List<Review> reviews;
+
     public void addUser(User user) {
         if (users == null) {
             users = new ArrayList<>();

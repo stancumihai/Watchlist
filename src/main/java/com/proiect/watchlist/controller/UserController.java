@@ -2,6 +2,7 @@ package com.proiect.watchlist.controller;
 
 import com.proiect.watchlist.exception.ApiRequestException;
 import com.proiect.watchlist.model.Movie;
+import com.proiect.watchlist.model.Review;
 import com.proiect.watchlist.model.User;
 import com.proiect.watchlist.service.RegisterService;
 import com.proiect.watchlist.service.UserService;
@@ -69,5 +70,10 @@ public class UserController {
     @PostMapping("/movies/{idUser}/{idMovie}")
     public Movie addMovieToUser(@PathVariable("idUser") Integer userId, @PathVariable("idMovie") Integer movieId) {
         return userService.addMovieToUser(userId, movieId);
+    }
+
+    @GetMapping("/{idUser}/reviews")
+    public List<Review> getUserReviews(@PathVariable("idUser") Integer userId) {
+        return userService.getReviews(userId);
     }
 }

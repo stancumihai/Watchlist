@@ -72,6 +72,10 @@ public class User {
         this.email = email;
     }
 
+    @OneToMany(mappedBy="review")
+    @JsonIgnore
+    private List<Review> reviews;
+
     @Override
     public String toString() {
         return "User{" +
