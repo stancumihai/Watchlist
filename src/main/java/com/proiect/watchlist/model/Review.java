@@ -34,12 +34,12 @@ public class Review {
     private Integer rating;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id", referencedColumnName = "id")
+    @JoinColumn(name = "movie_id")
     @JsonIgnore
     private Movie movie;
 

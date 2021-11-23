@@ -131,7 +131,7 @@ public class Movie {
     @JsonIgnore
     private List<User> users;
 
-    @OneToMany(mappedBy="review",orphanRemoval = true)
+    @OneToMany(mappedBy="movie",orphanRemoval = true)
     @JsonIgnore
     private List<Review> reviews;
 
