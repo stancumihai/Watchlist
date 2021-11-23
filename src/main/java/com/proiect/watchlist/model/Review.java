@@ -6,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
+@Entity(name = "review")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,12 +33,12 @@ public class Review {
     @Column(name = "rating")
     private Integer rating;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     @JsonIgnore
     private Movie movie;

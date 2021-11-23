@@ -72,7 +72,7 @@ public class User {
         this.email = email;
     }
 
-    @OneToMany(mappedBy="review")
+    @OneToMany(mappedBy="review",orphanRemoval = true)
     @JsonIgnore
     private List<Review> reviews;
 
