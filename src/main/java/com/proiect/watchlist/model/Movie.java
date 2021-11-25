@@ -131,6 +131,10 @@ public class Movie {
     @JsonIgnore
     private List<User> users;
 
+    @OneToMany(mappedBy="movie",orphanRemoval = true)
+    @JsonIgnore
+    private List<Review> reviews;
+
     public void addUser(User user) {
         if (users == null) {
             users = new ArrayList<>();
@@ -138,12 +142,11 @@ public class Movie {
         users.add(user);
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void addReview(Review review){
+        if (reviews == null) {
+            reviews = new ArrayList<>();
+        }
+        reviews.add(review);
     }
 
     @Override

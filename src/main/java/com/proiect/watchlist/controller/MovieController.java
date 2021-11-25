@@ -3,6 +3,7 @@ package com.proiect.watchlist.controller;
 import com.proiect.watchlist.model.Actor;
 import com.proiect.watchlist.model.Cinema;
 import com.proiect.watchlist.model.Movie;
+import com.proiect.watchlist.model.Review;
 import com.proiect.watchlist.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -69,5 +70,10 @@ public class MovieController {
     @GetMapping("/movies/{id}")
     public List<Cinema> getCinemasByMovie(@PathVariable("id") Integer movieId) {
         return movieService.findCinemasByMovie(movieId);
+    }
+
+    @GetMapping("/reviews/{id}")
+    public List<Review> getMovieReviews(@PathVariable("id") Integer movieId) {
+        return movieService.getMovieReviews(movieId);
     }
 }

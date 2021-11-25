@@ -7,8 +7,10 @@ import com.proiect.watchlist.exception.ApiRequestException;
 import com.proiect.watchlist.model.Actor;
 import com.proiect.watchlist.model.Cinema;
 import com.proiect.watchlist.model.Movie;
+import com.proiect.watchlist.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class MovieService {
         this.actorRepository = actorRepository;
     }
 
+    @Transactional
     public void addCinemaToMovie(Integer movieId, Integer cinemaId) {
 
         Movie movie = movieRepository.findById(movieId).
@@ -41,30 +44,29 @@ public class MovieService {
         cinemaRepository.save(cinema);
     }
 
+    @Transactional
     public void addActorToMovie(Integer actorId, Integer movieId) {
         Movie movie = movieRepository.findById(movieId).
                 orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + movieId));
         Actor actor = actorRepository.findById(actorId).
                 orElseThrow(() -> new ApiRequestException("Cannot find actor with id : " + actorId));
 
-        for(Actor actor1:movie.getActors()){
-            if(actor1.equals(actor)){
+        for (Actor actor1 : movie.getActors()) {
+            if (actor1.equals(actor)) {
                 throw new ApiRequestException("Actor with id : " + actorId + " already exists");
             }
         }
-        for(Movie movie1:actor.getMovies()){
-            if(movie1.equals(movie)){
+        for (Movie movie1 : actor.getMovies()) {
+            if (movie1.equals(movie)) {
                 throw new ApiRequestException("Movie with id : " + movieId + " already exists");
             }
         }
 
         movie.addActor(actor);
         actor.addMovie(movie);
-        //TODO Explica-mi
-//        movieRepository.save(movie);
-//        actorRepository.save(actor);
     }
 
+    @Transactional
     public Movie saveOrUpdate(Movie movie) {
         return movieRepository.save(movie);
     }
@@ -78,6 +80,7 @@ public class MovieService {
                 orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + id));
     }
 
+    @Transactional
     public List<Movie> findByTitle(String title) {
         return movieRepository.findByTitle(title);
     }
@@ -88,9 +91,16 @@ public class MovieService {
         return movie.getActors();
     }
 
+    @Transactional
     public List<Cinema> findCinemasByMovie(Integer id) {
         Movie movie = movieRepository.findById(id).
                 orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + id));
         return movie.getCinemas();
+    }
+
+    @Transactional
+    public List<Review> getMovieReviews(Integer id) {
+        return movieRepository.findById(id)
+                .orElseThrow(() -> new ApiRequestException("Cannot find movie with id: " + id)).getReviews();
     }
 }
