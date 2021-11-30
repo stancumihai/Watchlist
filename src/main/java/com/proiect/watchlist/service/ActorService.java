@@ -57,9 +57,6 @@ public class ActorService {
         }
         movie.addActor(actor);
         actor.addMovie(movie);
-        // TODO explica-mi ce e aici printr-un comment
-//        movieRepository.save(movie);
-//        actorRepository.save(actor);
     }
 
     @Transactional

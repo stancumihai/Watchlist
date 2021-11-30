@@ -72,7 +72,7 @@ export default function Movie() {
     (actors != null & moviePoster !== null) && 
     <div className="wrapper" style = {{background : "#333333"}}>
   	<Box display="flex" className={classes.box} justifyContent="flex-start">
-    	<Box p={1}>
+    	  <Box p={1}>
           <img className={classes.poster} src={ moviePoster.url } alt ='loading' />
         </Box>
         <Box p={1}>

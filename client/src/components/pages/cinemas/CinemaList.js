@@ -8,7 +8,7 @@ export const CinemaList = () => {
     const useStyles = makeStyles((theme) => ({
         card: {
           width: "250px",   
-          height : "55  0px",
+          height : "55",
           margin: 20,
           display: "inline-block",
           background: "rgb(30,30,30)",
@@ -62,7 +62,7 @@ export const CinemaList = () => {
         <div style = {{background : "#333333"}}>
             {cinemas.map(cinema =>
                 <Card id =  "cinema-card" className={classes.card} key={cinema.id}>
-                    <CardMedia className={classes.media} title={ cinema.name } />
+                    <CardMedia className={classes.media} image = {cinema.url} title={ cinema.name } />
                     <CardContent>
                     <Link to={ "/cinema/" + cinema.id } color="inherit" style={{textDecoration: "none"}}>
                       <Typography gutterBottom variant="h5" component="h2">

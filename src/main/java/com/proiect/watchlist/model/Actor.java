@@ -40,6 +40,9 @@ public class Actor {
     @Column(name = "birthdate")
     private Date birthdate;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "URL")
     private String URL;
 
@@ -60,11 +63,12 @@ public class Actor {
     @JsonIgnore
     private List<Movie> movies;
 
-    public Actor(Integer id, String name, String surname, Date birthdate, String URL) {
+    public Actor(Integer id, String name, String surname, Date birthdate, String description, String URL) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.birthdate = birthdate;
+        this.description = description;
         this.URL = URL;
     }
 
@@ -83,6 +87,9 @@ public class Actor {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birthdate=" + birthdate +
+                ", description='" + description + '\'' +
+                ", URL='" + URL + '\'' +
+                ", movies=" + movies +
                 '}';
     }
 }

@@ -36,6 +36,9 @@ public class Cinema {
     @Column(name = "capacity")
     private Integer capacity;
 
+    @Column(name = "url")
+    private String url;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "cinema_movies",
@@ -51,10 +54,11 @@ public class Cinema {
     @JsonIgnore
     private List<Movie> movies;
 
-    public Cinema(Integer id, String name, Integer capacity) {
+    public Cinema(Integer id, String name, Integer capacity, String url) {
         this.id = id;
         this.name = name;
         this.capacity = capacity;
+        this.url = url;
     }
 
     public void addMovie(Movie movie) {
@@ -69,6 +73,8 @@ public class Cinema {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", capacity=" + capacity +
+                ", url='" + url + '\'' +
+                ", movies=" + movies +
                 '}';
     }
 }

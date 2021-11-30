@@ -6,6 +6,7 @@ import ActorService from "../../../services/ActorService.js";
 
 const useStyles = makeStyles((theme) => ({
   title: {
+    paddingLeft:20,
   	color: "white",
   	paddingTop: 10
   },
@@ -14,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
   plot: {
   	color: "white",
+    paddingLeft:20,
   	paddingTop: 10
   },
   button: {
@@ -54,7 +56,6 @@ export default function Actor() {
   
   useEffect(() => {
     graspActorId()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   
   const graspActorId = () =>{
@@ -78,8 +79,9 @@ export default function Actor() {
         </Box>
         <Box p={1}>
           <Typography variant="h3" gutterBottom className={classes.title}> {actor.name } {actor.surname}</Typography>
-          {/* <Typography variant="h6" gutterBottom className={classes.prof}>{ actor.profession}</Typography> */}
+          <Typography variant="subtitle1" gutterBottom className={classes.plot}>{ actor.description}</Typography>
         </Box>
+
   	</Box>
     <Box display="flex" className={classes.box} justifyContent="flex-start" m={1} p={1}>
       <Box p={1}>
