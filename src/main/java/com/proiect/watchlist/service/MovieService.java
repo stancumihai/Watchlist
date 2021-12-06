@@ -3,6 +3,7 @@ package com.proiect.watchlist.service;
 import com.proiect.watchlist.dao.repository.ActorRepository;
 import com.proiect.watchlist.dao.repository.CinemaRepository;
 import com.proiect.watchlist.dao.repository.MovieRepository;
+import com.proiect.watchlist.dao.repository.ReviewRepository;
 import com.proiect.watchlist.exception.ApiRequestException;
 import com.proiect.watchlist.model.Actor;
 import com.proiect.watchlist.model.Cinema;
@@ -103,4 +104,5 @@ public class MovieService {
         return movieRepository.findById(id)
                 .orElseThrow(() -> new ApiRequestException("Cannot find movie with id: " + id)).getReviews();
     }
+
 }

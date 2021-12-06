@@ -60,4 +60,8 @@ public class ReviewService {
         userRepository.findById(userId).get().addReview(review1);
         return review1;
     }
+
+    public Float getMovieRating(Integer id) {
+        return reviewRepository.getMovieRating(id);
+    }
 }

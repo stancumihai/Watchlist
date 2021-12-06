@@ -42,4 +42,9 @@ public class ReviewController {
         Review newReview = reviewService.saveReview(review);
         return new ResponseEntity<>(newReview, HttpStatus.CREATED);
     }
+
+    @GetMapping("/{id}/rating")
+    public Float getMovieReview(@PathVariable("movieId") Integer movieId) {
+        return reviewService.getMovieRating(movieId);
+    }
 }

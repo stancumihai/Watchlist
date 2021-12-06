@@ -1,5 +1,6 @@
 package com.proiect.watchlist;
 
+import com.proiect.watchlist.service.ReviewService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
