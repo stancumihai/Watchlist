@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review , Integer> {
 
-    @Query("SELECT AVG(r.rating) FROM Review r WHERE r.movie_id=?1")
+    @Query(value = "SELECT AVG(r.rating) FROM Review r WHERE r.movie_id=?1", nativeQuery = true)
     Float getMovieRating(Integer id);
 }
 

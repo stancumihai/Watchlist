@@ -8,10 +8,7 @@ import java.util.List;
 
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
-    @Query("SELECT u FROM Movie u WHERE u.name LIKE ?1")
+    @Query("SELECT u FROM Movie u WHERE u.name LIKE %?1%")
     List<Movie> findByTitle(String title);
-
-
-
 
 }
