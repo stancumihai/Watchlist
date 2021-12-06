@@ -72,8 +72,5 @@ public class UserController {
         return userService.addMovieToUser(userId, movieId);
     }
 
-    @GetMapping("/reviews/{userId}")
-    public List<Review> getReviewsByUser(@PathVariable("userId") Integer id) {
-        return userService.getReviews(id);
-    }
+
 }
