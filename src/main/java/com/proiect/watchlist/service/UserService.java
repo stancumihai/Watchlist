@@ -52,8 +52,8 @@ public class UserService {
                 .orElseThrow(() -> new ApiRequestException("Cannot find user with id: " + userId));
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new ApiRequestException("Cannot find user with id: " + movieId));
-        for(Movie theMovie : user.getMovies()){
-            if(theMovie.getId().equals(movieId)){
+        for (Movie theMovie : user.getMovies()) {
+            if (theMovie.getId().equals(movieId)) {
                 throw new ApiRequestException("Cannot find user with id: " + movieId);
             }
         }

@@ -19,6 +19,10 @@ class UserService {
     async addMovie(userId,movieId){
         return await axios.post(USERS_REST_API_URL + `/movies/${userId}/${movieId}`)
     }
+
+    async getReviewsByUser(id){
+        return await axios.get(USERS_REST_API_URL + `/reviews/${id}`)
+    }
 }
 
 export default new UserService();

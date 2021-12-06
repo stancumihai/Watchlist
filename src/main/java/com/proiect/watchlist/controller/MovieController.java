@@ -72,13 +72,8 @@ public class MovieController {
         return movieService.findCinemasByMovie(movieId);
     }
 
-    @GetMapping("/movies/{id}/reviews")
+    @GetMapping("/reviews/{id}")
     public List<Review> getMovieReviews(@PathVariable("id") Integer movieId) {
         return movieService.getMovieReviews(movieId);
-    }
-
-    @GetMapping("/movies/{id}/rating")
-    public Float getMovieRating(@PathVariable("id") Integer movieId){
-        return movieService.getMovieRating(movieId);
     }
 }

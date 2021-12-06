@@ -72,9 +72,17 @@ public class User {
         this.email = email;
     }
 
-    @OneToMany(mappedBy="user",orphanRemoval = true)
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     @JsonIgnore
     private List<Review> reviews;
+
+    public Review addReview(Review review) {
+        if (reviews == null) {
+            reviews = new ArrayList<>();
+        }
+        reviews.add(review);
+        return review;
+    }
 
     @Override
     public String toString() {

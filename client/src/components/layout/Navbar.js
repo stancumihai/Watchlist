@@ -1,11 +1,10 @@
-import React from "react";
+import React , {useState, useEffect} from "react";
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { alpha, makeStyles } from '@material-ui/core/styles';
+import {Toolbar, Typography , Avatar} from '@material-ui/core';
+import {makeStyles } from '@material-ui/core/styles';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import Avatar from '@material-ui/core/Avatar';
-import Link from '@material-ui/core/Link';
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -33,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: 20,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    // backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      // backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
     width: '100%',
@@ -87,19 +86,41 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchAppBar() {
 
   const classes = useStyles();
+  const [id,setId] = useState(0)
+
+  useEffect(()=>{
+    if(localStorage.state != null){
+      setId(parseInt(JSON.parse(localStorage.state).id[0]) + 1)
+    }
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[id])
+
+  const history = useHistory()
+  const logoutUser = () => {
+    localStorage.clear();
+    history.push("/", );
+    window.location.reload();
+  }
 
   return (
     <div className={classes.header}>
       <AppBar position="static" className = {classes.bar}>
         <Toolbar>
-          <Link to="/"><Avatar alt="PopCritic" src="/header.png" className={classes.avatar} /> </Link>
+          <Link to = "/" ><Avatar alt="PopCritic" src="/header.png" className={classes.avatar} /> </Link>
           <Typography className={classes.title} variant="h6" noWrap>
             PopCritic
           </Typography>
-          <Link href="https://github.com/stancumihai/Watchlist">
-            <GitHubIcon fontSize="large" className={classes.gh} /></Link>
-          <Link href = "/"><span>Login</span></Link>
-          <Link href = "/Register"> <span>Register</span></Link>
+          <a href = "https://github.com/stancumihai/Watchlist">
+            <GitHubIcon fontSize="large" className={classes.gh} /></a>
+            {id === 0 ? 
+            <div>
+              <Link to = "/"> <span>Login</span> </Link>
+              <Link to = "/Register"> <span>Register</span></Link>
+            </div> : 
+            <div onClick={() => logoutUser()}>
+              <Link to = '/' onClick = {() => {localStorage.clear()}}><span>Logout</span></Link>
+            </div>
+            }
          </Toolbar>
       </AppBar>
     </div>

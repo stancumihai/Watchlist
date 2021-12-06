@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity(name = "review")
 @Builder
@@ -35,12 +34,28 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    @JsonIgnore
     private Movie movie;
 
+    public Review(String body, Integer rating, User user, Movie movie) {
+        this.body = body;
+        this.rating = rating;
+        this.user = user;
+        this.movie = movie;
+    }
+
+    @Override
+    public String
+    toString() {
+        return "Review{" +
+                "id=" + id +
+                ", body='" + body + '\'' +
+                ", rating=" + rating +
+                ", user=" + user +
+                ", movie=" + movie +
+                '}';
+    }
 }

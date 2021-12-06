@@ -1,4 +1,4 @@
-import React from 'react'
+import React  from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Login from './components/pages/auth/Login.js'
 import Register from './components/pages/auth/Register.js'
@@ -11,6 +11,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import './App.css'
 import store from './redux/store.js'
 import {Provider} from 'react-redux'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import CinemaList from './components/pages/cinemas/CinemaList.js'
+import { UserReviews } from './components/pages/review/UserReviews.js'
+import { Cinema } from './components/pages/cinemas/Cinema.js'
 
 const useStyles = makeStyles((theme) => ({
   notFound: {
@@ -24,22 +29,29 @@ const useStyles = makeStyles((theme) => ({
 function App() {
 
   const classes = useStyles();
-
+  
   return (
     <Provider store = {store}>
       <Router>
          <div className="App">
-          <Navbar title = "App Critic" icon = "fab fa-github"/>
-           <Switch>
+            <Navbar title = "App Critic" icon = "fab fa-github" />
+            <Switch>
              <Route exact path = '/' component = {Login}/>
              <Route exact path = '/register' component = {Register}/>
-             <Route exact path = '/home' component = {Home}/>
+             <Route exact path = '/home'><Home/></Route>
              <Route exact path = '/profile' component = {Profile}/>
-             <Route path="/movie/:query"><Movie/></Route>
+             <Route exact path = '/cinema' component = {CinemaList}/>
+             <Route exact path = '/cinema/:query' component = {Cinema}/>
+             <Route exact path = '/userReview' component = {UserReviews}/>
+             <Route path="/movie/:query"><Movie/>
+               <Snackbar  autoHideDuration={1000}>
+                <MuiAlert elevation={6} variant="filled" severity="success">SuccessFully Logged In</MuiAlert>
+               </Snackbar>
+             </Route>
              <Route path="/actor/:query"><Actor/></Route>
              <Route path="*">
               <img src="/404.gif" className={classes.notFound} alt = "Loading ..."/>
-            </Route>
+             </Route>
            </Switch>
          </div>
       </Router>

@@ -51,22 +51,19 @@ public class MovieService {
         Actor actor = actorRepository.findById(actorId).
                 orElseThrow(() -> new ApiRequestException("Cannot find actor with id : " + actorId));
 
-        for(Actor actor1:movie.getActors()){
-            if(actor1.equals(actor)){
+        for (Actor actor1 : movie.getActors()) {
+            if (actor1.equals(actor)) {
                 throw new ApiRequestException("Actor with id : " + actorId + " already exists");
             }
         }
-        for(Movie movie1:actor.getMovies()){
-            if(movie1.equals(movie)){
+        for (Movie movie1 : actor.getMovies()) {
+            if (movie1.equals(movie)) {
                 throw new ApiRequestException("Movie with id : " + movieId + " already exists");
             }
         }
 
         movie.addActor(actor);
         actor.addMovie(movie);
-        //TODO Explica-mi
-//        movieRepository.save(movie);
-//        actorRepository.save(actor);
     }
 
     @Transactional
@@ -74,12 +71,10 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    @Transactional
     public List<Movie> findAll() {
         return movieRepository.findAll();
     }
 
-    @Transactional
     public Movie findById(Integer id) {
         return movieRepository.findById(id).
                 orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + id));
@@ -90,7 +85,6 @@ public class MovieService {
         return movieRepository.findByTitle(title);
     }
 
-    @Transactional
     public List<Actor> findActorsByMovie(Integer id) {
         Movie movie = movieRepository.findById(id).
                 orElseThrow(() -> new ApiRequestException("Cannot find movie with id : " + id));
@@ -105,13 +99,8 @@ public class MovieService {
     }
 
     @Transactional
-    public Float getMovieRating(Integer id) {
-        return movieRepository.getRatingById(id);
-    }
-
-    @Transactional
     public List<Review> getMovieReviews(Integer id) {
         return movieRepository.findById(id)
-                .orElseThrow(() -> new ApiRequestException("Cannot find user with id: " + id)).getReviews();
+                .orElseThrow(() -> new ApiRequestException("Cannot find movie with id: " + id)).getReviews();
     }
 }

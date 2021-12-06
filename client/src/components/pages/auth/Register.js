@@ -1,8 +1,8 @@
 import React, { useState} from "react";
 import Form from "react-bootstrap/Form";
-import "./Login.css";
 import LoginService from "../../../services/LoginService.js";
 import { Redirect } from "react-router";
+import "./Login.css";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -54,7 +54,6 @@ export default function Login() {
       <form className = "registerForm" onSubmit={handleSubmit}>
         <h3>Register</h3>
         <Form.Group size="lg">
-          <h4 style ={{paddingTop : "50px", fontSize:"25px"}}>Mandatory</h4>
           <Form.Label className = "required">User Name</Form.Label>
           <Form.Control
             id = "register-username"
@@ -75,7 +74,6 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <h4 style ={{paddingTop : "50px", fontSize:"25px"}}>Secondary</h4>
         <Form.Group size="lg">
           <Form.Label >User</Form.Label>
           <Form.Control
@@ -104,6 +102,7 @@ export default function Login() {
           />
         </Form.Group>
        <input 
+            style = {{background:"cornflowerblue"}}
             type = "submit"
             value = "Register"
             className = "btn btn-dark btn-block"

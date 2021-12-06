@@ -34,6 +34,7 @@ public class ActorController {
 
     @GetMapping("/{id}")
     public Actor findById(@PathVariable("id") Integer id) {
+        System.out.println(id);
         return actorService.findById(id);
     }
 
@@ -49,6 +50,7 @@ public class ActorController {
                     actor.getName(),
                     actor.getSurname(),
                     actor.getBirthdate(),
+                    actor.getDescription(),
                     actor.getURL()
             );
             saveActor(newActor);

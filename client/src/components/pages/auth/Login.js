@@ -26,12 +26,16 @@ const Login = props => {
 
     for (var counter in props.users){
       if(props.users[counter].user_name === user.user_name && props.users[counter].password === user.password){
-            history.push('/profile' , { id : parseInt(counter + 1)}) 
+            const serializedState = JSON.stringify({ id : counter + 1});
+            localStorage.setItem("state" , serializedState)
+            history.push('/profile' , { id : counter + 1})
+            window.location.reload(); 
           return;         
       }
     }
     alert('User does not exist, please register')
-    window.location.reload()
+    history.push('/')
+    
   }
 
   return (
@@ -62,6 +66,7 @@ const Login = props => {
           />
         </Form.Group>
        <input 
+            style = {{background:"cornflowerblue"}}
             type = "submit"
             value = "Login"
             className = "btn btn-dark btn-block"

@@ -43,7 +43,8 @@ public class CinemaController {
             Cinema newCinema = new Cinema(
                     id,
                     cinema.getName(),
-                    cinema.getCapacity()
+                    cinema.getCapacity(),
+                    cinema.getUrl()
             );
             saveCinema(newCinema);
             return new ResponseEntity<>(newCinema, HttpStatus.OK);
@@ -51,8 +52,8 @@ public class CinemaController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/actors/{id}")
-    public List<Movie> getMovieByCinema(@PathVariable("id") Integer cinemaId) {
+    @GetMapping("/movies/{id}")
+    public List<Movie> getMoviesByCinema(@PathVariable("id") Integer cinemaId) {
         return cinemaService.getMoviesByCinema(cinemaId);
     }
 }
