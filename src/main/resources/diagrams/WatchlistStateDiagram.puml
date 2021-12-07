@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+scale 350 width
+
+
+state NotLoggedIn {
+  [*] --> Register
+  Register -> Login : register user
+}
+
+state LoggedIn {
+  Login --> Profile : login
+  Profile --> Login : logout
+
+
+  state Profile {
+        Profile --> Watchlist : see watchlist
+        Profile --> Reviews : see reviews
+        Profile --> Cinemas : see cinemas
+  }
+
+  state Movies {
+    Profile -l-> Movies : see movies
+    Movies --> AddedToWatchlist : add to watchlist
+    Movies --> MovieInfo : see movie
+    Movies --> SortedMovies : sort movies
+  }
+
+  state MovieInfo {
+    Movie --> Review : leave review
+    Movie --> ActorInfo : see movie actor
+    Movie --> Cinema : see movie cinema
+  }
+
+  Movies --> Profile : go back to profile
+  MovieInfo --> Profile : go back to profile
+  ActorInfo --> Profile : go back to profile
+  Cinema --> Profile : go back to profile
+  AddedToWatchlist --> Profile : go back to profile
+  SortedMovies --> Profile : go back to profile
+  Review --> Profile : go back to profile
+
+}
+@enduml

@@ -1,0 +1,63 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+node "Frontend" {
+    HTTP - [UI]
+}
+
+node "Backend" {
+   API --> HTTP
+
+  package "repository" {
+    [Repositories]
+  }
+  package "service" {
+    [Services]
+  }
+  package "controller" {
+      API - [Controllers]
+  }
+  package "model" {
+    [Models]
+  }
+
+}
+
+
+database "MySql" {
+  [Watchlist]
+  folder "user" {
+  [User]
+  }
+  folder "movie" {
+  [Movie]
+  }
+  folder "cinema" {
+  [Cinema]
+  }
+  folder "actor" {
+  [Actor]
+  }
+  folder "review" {
+  [Review]
+  }
+}
+
+[Cinema] <--> [Movie]
+[Actor] <--> [Movie]
+[User] <--> [Movie]
+[User] --> [Review]
+[Movie] -> [Review]
+
+[Services] --> [Repositories]
+[Controllers] -> [Services]
+[Repositories] -> [Models]
+[Models] --> [Watchlist]
+
+[Watchlist] -> [Actor]
+[Watchlist] -> [Cinema]
+[Watchlist] -> [User]
+[Watchlist] -> [Movie]
+[Watchlist] -> [Review]
+
+@enduml

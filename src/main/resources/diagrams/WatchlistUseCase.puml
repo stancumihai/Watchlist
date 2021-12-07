@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+
+User ---> (Login)
+User ---> (Register)
+
+
+User --> (See profile)
+User --> (See watchlist)
+User --> (See reviews)
+User --> (See cinemas)
+User --> (Logout)
+User -u-> (Add to watchlist)
+User -u-> (Sort movies)
+User -u-> (See actor)
+User -u-> (Post review)
+User -u-> (See movie)
+
+User -u-> (Search movie)
+
+
+(See watchlist) .> (See profile)
+(See cinemas) .> (See profile)
+(See reviews) .> (See profile)
+(See movie) <. (See actor)
+(See movie) <. (Post review)
+
+(Logout) .> (Login)
+(Login) .> (Register)
+
+
+
+
+@enduml
